@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Java Programming Course Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a clear, encouraging transit guide for a first programming course — confident, plain, exact.
+   IDEA: a metro map. The semester is a route; each chapter is a station on a coloured line.
+   PICTURE: the route map on the home screen; on each stop, a working Java lab is the picture.
+   COLOUR and TYPE: white ground, line colours red/amber/blue/green/purple, black ink; Figtree 800 + Figtree, mono for code.
+   LAYOUT: one thick line with 45-degree bends organises the course; stops are lab beside notes, quiz below. */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0e1116);--ink:light-dark(#111418,#e9ecf1);--mute:light-dark(#5b6370,#9aa3b2);--soft:light-dark(#f3f5f8,#171b22);--rule:light-dark(#dfe3ea,#2a303b);--card:light-dark(#ffffff,#131820);
+--red:#e6261f;--blue:#0a5cff;--amber:#ffb400;--green:#00a05a;--purple:#7a3cd6;--c:var(--red);
+--tk-kw:light-dark(#6a2bc4,#c9a8ff);--tk-num:light-dark(#0a4fd6,#86b4ff);--tk-str:light-dark(#007a44,#63d69e);--tk-op:light-dark(#c41d17,#ff8a83)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Figtree,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-weight:800;line-height:1.05;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,5vw,52px)}h2{font-size:24px;margin-bottom:12px}h3{font-size:17px;margin:18px 0 6px}
+a{color:inherit}
+.band{padding:clamp(24px,4vw,56px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+pre,.scroll{overflow-x:auto}code{overflow-wrap:anywhere}html{scroll-padding-top:72px}
+pre.code{background:var(--soft);padding:12px 14px;border-radius:10px;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;margin:8px 0;white-space:pre}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+header.top{display:flex;align-items:center;gap:16px;padding:12px max(5vw,16px);border-bottom:6px solid var(--ink);flex-wrap:wrap}
+.brand{font-weight:800;font-size:18px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand i{width:26px;height:26px;border-radius:50%;border:6px solid var(--red);display:inline-block;background:var(--bg)}
+.navline{display:flex;align-items:center;overflow-x:auto;flex:1;padding:4px 0;scrollbar-width:thin}
+.navline a{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;font-size:13px;font-weight:600;color:var(--mute);padding:4px 6px;min-width:64px;position:relative;border-radius:8px}
+.navline a::before{content:"";position:absolute;top:15px;left:-50%;right:50%;height:6px;background:var(--lc);z-index:0}
+.navline a:first-child::before{display:none}
+.navline a span.dot{width:20px;height:20px;border-radius:50%;background:var(--bg);border:5px solid var(--lc);z-index:1;position:relative}
+.navline a.done span.dot{background:var(--lc)}
+.navline a.on{color:var(--ink)}.navline a.on span.dot{width:24px;height:24px;margin:-2px;box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--ink)}
+.pill{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;color:var(--mute)}
+.pill b{background:var(--c);color:#fff;border-radius:999px;padding:2px 10px;font-weight:800}
+.pill b.amber{color:#111}
+.lede{font-size:18px;color:var(--mute);max-width:68ch;margin:12px 0 0}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:start}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+@media(max-width:960px){.grid{grid-template-columns:minmax(0,1fr)}}
+.lab{border-top:6px solid var(--c);padding-top:14px}
+.notes{max-width:68ch}.notes p,.notes li{margin:6px 0}.notes ul{padding-left:20px;margin:6px 0}
+.f{background:var(--soft);border-left:4px solid var(--c);padding:8px 12px;border-radius:0 8px 8px 0;margin:10px 0;font-variant-numeric:tabular-nums;overflow-x:auto}
+.ctrls{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;margin:12px 0}
+.ctrls label{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;flex-wrap:wrap}
+button,select,input,textarea{font:inherit;color:inherit}
+button{min-height:44px;padding:0 16px;border-radius:999px;border:2px solid var(--ink);background:var(--bg);font-weight:700;cursor:pointer}
+button:disabled{opacity:.4;cursor:default}
+button.pri{background:var(--ink);color:var(--bg)}
+button[aria-pressed=true]{background:var(--c);border-color:var(--c);color:#fff}
+.amberline button[aria-pressed=true]{color:#111}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+select,input[type=text],textarea{min-height:44px;font-size:16px;border:2px solid var(--rule);border-radius:10px;background:var(--card);padding:6px 10px}
+input[type=text]{font-family:ui-monospace,Menlo,Consolas,monospace;width:min(100%,340px)}
+textarea{width:100%;min-height:220px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;line-height:1.5;tab-size:2;white-space:pre;overflow:auto}
+input[type=range]{width:100%;accent-color:var(--c);min-height:32px}
+.out{background:var(--soft);border-radius:12px;padding:12px 14px;margin-top:10px;font-variant-numeric:tabular-nums}
+.big{font-size:28px;font-weight:800}
+.err{color:var(--tk-op);font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:15px;font-variant-numeric:tabular-nums}
+th,td{padding:6px 8px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{font-weight:700;white-space:nowrap}td.n,th.n{text-align:right;white-space:nowrap}
+tr.hi td{background:color-mix(in srgb,var(--c) 14%,transparent);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{min-height:36px;padding:0 12px;font-size:14px;border-width:2px}
+.pipe{display:flex;flex-wrap:wrap;gap:0;align-items:center;margin:10px 0}
+.pipe span{padding:6px 12px;border-radius:999px;border:2px solid var(--rule);font-weight:700;font-size:14px}
+.pipe span.ok{border-color:var(--green)}.pipe span.bad{border-color:var(--red);background:var(--red);color:#fff}
+.pipe i{width:18px;height:4px;background:var(--rule)}
+.console{background:#14171c;color:#e9ecf1;border-radius:10px;padding:10px 12px;font:14px/1.55 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;min-height:44px;max-height:300px;overflow:auto;margin-top:6px}
+.console .cin{color:#7ee2a8;font-weight:700}.console .cx{color:#ff8a83}.console .cdim{color:#8a93a3}
+.lbl{font-weight:800;font-size:14px;margin-top:14px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}.lbl span{font-weight:500;color:var(--mute)}
+.codev{position:relative;background:var(--soft);border-radius:10px;padding:6px 0;font:13.5px/1.6 ui-monospace,Menlo,Consolas,monospace;overflow:auto;max-height:380px;margin-top:6px}
+.ln{display:flex;white-space:pre;padding-right:12px;min-width:max-content}
+.ln .no{width:3.2em;flex:none;text-align:right;padding-right:12px;color:var(--mute);user-select:none}
+.ln.cur{background:color-mix(in srgb,var(--c) 28%,transparent);box-shadow:inset 4px 0 var(--c)}
+.ln.prev{background:color-mix(in srgb,var(--c) 10%,transparent)}
+.ln.hit{background:color-mix(in srgb,var(--green) 16%,transparent)}
+.ln.miss{opacity:.42}
+.ln.errl{background:color-mix(in srgb,var(--red) 24%,transparent);box-shadow:inset 4px 0 var(--red)}
+.ln .cnt{padding-left:18px;color:var(--mute);font-size:12px}
+.t-kw{color:var(--tk-kw);font-weight:700}.t-str{color:var(--tk-str)}.t-num{color:var(--tk-num)}.t-com{color:var(--mute);font-style:italic}
+.status{font-size:14px;color:var(--mute);margin-top:8px}.status b{color:var(--ink)}
+.mem{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:14px;margin-top:10px}
+@media(max-width:620px){.mem{grid-template-columns:minmax(0,1fr)}}
+.colh{font-weight:800;font-size:13px;color:var(--mute);margin-bottom:6px}
+.fbox{border:2px solid var(--rule);border-radius:10px;padding:6px 10px;margin-bottom:8px;background:var(--card)}
+.fbox.top{border-color:var(--c);box-shadow:0 2px 0 var(--c)}
+.fbox h4{margin:0 0 4px;font:700 13px/1.4 ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.vt{font:13px/1.45 ui-monospace,Menlo,Consolas,monospace;width:100%}.vt td{padding:2px 4px;border:0;vertical-align:baseline}.vt td:first-child{white-space:nowrap}
+.ty{color:var(--mute);font-size:11.5px;margin-left:4px}
+.ref{color:var(--blue);font-weight:800}
+.rid{color:var(--mute);font-size:10.5px;margin-left:2px}
+.hbox{border:2px solid var(--rule);border-radius:10px;padding:6px 8px;margin-bottom:10px;background:var(--card)}
+.hbox.g{opacity:.5;border-style:dashed}
+.hh{font:12.5px/1.4 ui-monospace,Menlo,Consolas,monospace;margin-bottom:4px;overflow-wrap:anywhere}.hh .who{color:var(--mute)}
+.arr{display:flex;flex-wrap:wrap;gap:0;padding-bottom:4px}
+.cell{display:flex;flex-direction:column;align-items:center;min-width:46px;border:2px solid var(--rule);margin:0 -2px -2px 0;padding:2px 4px 0;font:13px/1.4 ui-monospace,Menlo,Consolas,monospace}
+.cell .ix{font-size:10.5px;color:var(--mute)}.cell .cv{font-weight:700;white-space:nowrap}
+.cell .ptr{font-size:11px;font-weight:800;color:#fff;background:var(--c);border-radius:4px;padding:0 4px;margin:2px 0 3px}
+.amberline .cell .ptr{color:#111}
+.cell.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);position:relative;z-index:1}
+.gt{border-collapse:collapse;width:auto;font:13px/1.4 ui-monospace,Menlo,Consolas,monospace}
+.gt td,.gt th{border:2px solid var(--rule);padding:3px 8px;text-align:center;min-width:38px}
+.gt th{color:var(--mute);font-size:11px;font-weight:600;border-color:transparent}
+.gt td.on{background:color-mix(in srgb,var(--c) 30%,transparent);border-color:var(--c);font-weight:800}
+.gt td.rowon{background:color-mix(in srgb,var(--c) 8%,transparent)}
+.gt td.colon{background:color-mix(in srgb,var(--c) 8%,transparent)}
+.gt td.x{border:0}
+.trace{font:13px/1.45 ui-monospace,Menlo,Consolas,monospace}.trace th{font-size:12px}
+.trace td{white-space:nowrap}.trace td.ch{font-weight:800;color:var(--ink);background:color-mix(in srgb,var(--c) 16%,transparent)}
+.trace tr.now td{box-shadow:inset 0 -2px var(--c)}
+.tracewrap{max-height:300px;overflow:auto;margin-top:6px;border:2px solid var(--rule);border-radius:10px}
+.tracewrap thead th{position:sticky;top:0;background:var(--card)}
+.ebox{border:2px solid var(--red);border-radius:12px;padding:10px 12px;margin-top:10px}
+.ebox b{color:var(--red)}.ebox pre{margin:6px 0 0;font:13.5px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap}
+.uml{display:flex;flex-wrap:wrap;gap:14px;margin-top:6px}
+.umlbox{border:2px solid var(--ink);border-radius:4px;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--card);max-width:100%}
+.umlbox>div{padding:4px 10px;border-top:2px solid var(--ink)}.umlbox>div:first-child{border-top:0;text-align:center;font-weight:800;font-family:Figtree,sans-serif;font-size:15px}
+.ul{text-decoration:underline}
+.ladder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;font:13px ui-monospace,Menlo,monospace}
+.ladder span{padding:3px 9px;border-radius:999px;border:2px solid var(--rule)}.ladder span.on{background:var(--c);border-color:var(--c);color:#fff;font-weight:800}.ladder i{color:var(--mute);font-style:normal}
+.steps{list-style:none;padding:0;margin:8px 0 0;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace}
+.steps li{display:flex;gap:10px;flex-wrap:wrap;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--rule)}
+.steps code{background:var(--soft);padding:1px 6px;border-radius:6px}
+.tyb{display:inline-block;font:700 12px ui-monospace,Menlo,monospace;border-radius:6px;padding:1px 7px;background:var(--ink);color:var(--bg)}
+.sx{display:flex;flex-wrap:wrap;margin:10px 0}
+.sx button{min-height:0;border-radius:0;border:2px solid var(--rule);margin:0 -2px -2px 0;padding:2px 0 0;width:40px;display:flex;flex-direction:column;align-items:center;font:700 16px ui-monospace,Menlo,monospace;background:var(--card)}
+.sx button small{font:500 10.5px ui-monospace,Menlo,monospace;color:var(--mute);margin-top:2px;padding-bottom:2px}
+.sx button.h{background:color-mix(in srgb,var(--c) 22%,transparent);border-color:var(--c);position:relative;z-index:1}
+.sx button.pick{box-shadow:inset 0 -4px var(--ink)}
+.quiz{border-top:6px solid var(--ink)}
+.q{padding:14px 0;border-bottom:1px solid var(--rule)}
+.q p{font-weight:700;margin:0 0 8px}
+.opt{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:10px;cursor:pointer;min-height:44px}
+.opt:hover{background:var(--soft)}
+.opt.right{background:color-mix(in srgb,var(--green) 18%,transparent)}
+.opt.wrong{background:color-mix(in srgb,var(--red) 16%,transparent)}
+.why{display:none;color:var(--mute);margin:6px 0 0 10px}.q.checked .why{display:block}
+.pager{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:28px}
+.pager a{display:flex;flex-direction:column;text-decoration:none;font-weight:800;font-size:18px;padding:10px 0}
+.pager a small{font-weight:600;color:var(--mute);font-size:14px}
+.map svg{width:100%;height:auto;display:block}
+.map text{font:800 19px Figtree,sans-serif;fill:var(--ink)}
+.map text.s{font:500 14px Figtree,sans-serif;fill:var(--mute)}
+.map a:hover text{text-decoration:underline}
+.vmap{display:none;list-style:none;padding:0;margin:0}
+.vmap li a{display:flex;gap:14px;align-items:center;text-decoration:none;padding:8px 0;position:relative}
+.vmap li a::before{content:"";position:absolute;left:9px;top:-50%;height:100%;width:6px;background:var(--lc)}
+.vmap li:first-child a::before{display:none}
+.vmap .dot{width:24px;height:24px;border-radius:50%;border:6px solid var(--lc);background:var(--bg);flex:none;z-index:1}
+.vmap .done .dot{background:var(--lc)}
+.vmap b{font-size:18px;display:block}.vmap small{color:var(--mute)}
+@media(max-width:700px){.map svg{display:none}.vmap{display:block}}
+.lines{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:18px;margin-top:28px}
+.lines div{border-top:6px solid var(--lc);padding-top:10px}
+.lines b{font-size:18px}
+.lines p{margin:4px 0;color:var(--mute)}
+.small{font-size:14px;color:var(--mute)}
+footer{border-top:6px solid var(--ink);padding:18px max(5vw,16px);color:var(--mute);font-size:14px}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal}.stack td:empty{display:none}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#"><i></i>CS 155</a>
+  <nav class="navline" id="nav" aria-label="Course stops"></nav>
+</header>
+<main id="main"></main>
+<footer><div class="wrap">Interactive companion for CS 155, following chapters 1–10 of Liang, <i>Introduction to Java Programming and Data Structures</i>. The labs run a teaching interpreter for a subset of Java inside your browser: it covers everything in these chapters, but it is not the real JDK, so compile your assignments with javac. Quiz progress is saved only in this browser.</div></footer>
+
+<script>
+{
+/*J-START*/
+const J=(()=>{
+const PRIM=new Set(['int','double','boolean','char','long','float','byte','short']);
+const KW=new Set('abstract boolean break byte case char class continue default do double else extends final float for if import int long new private protected public return short static switch this void while var'.split(' '));
+const RANK={byte:1,short:2,char:2,int:3,long:4,float:5,double:6};
+const KNOWN=new Set(['String','Scanner','StringBuilder','Random','Integer','Double','Character','Boolean','Long','Object','Math','System','Arrays']);
+const NEEDIMPORT={Scanner:'java.util',Random:'java.util',Arrays:'java.util'};
+const BOX={Integer:'int',Double:'double',Character:'char',Boolean:'boolean',Long:'long'};
+const UTILEX=new Set(['InputMismatchException','NoSuchElementException','IllegalFormatConversionException','MissingFormatArgumentException','UnknownFormatConversionException']);
+class CE extends Error{constructor(m,line){super(m);this.line=line;this.phase='compile'}}
+class RX extends Error{constructor(ex,m,line,trace){super(m);this.ex=ex;this.line=line;this.trace=trace||[];this.phase='run'}}
+class Exit{}
+class Ret{constructor(v,line){this.v=v;this.line=line}}
+const BRK={brk:1},CNT={cnt:1};
+
+function lex(src){
+ const T=[];let i=0,line=1;const n=src.length;
+ const OPS=['>>>=','<<=','>>=','>>>','->','++','--','&&','||','==','!=','<=','>=','+=','-=','*=','/=','%=','&=','|=','^=','<<','>>','::','+','-','*','/','%','=','<','>','!','~','?',':',';',',','.','(',')','{','}','[',']','&','|','^','@'];
+ const esc=()=>{const c=src[i+1];const m={n:'\n',t:'\t',r:'\r','\\':'\\',"'":"'",'"':'"',b:'\b',f:'\f','0':'\0',s:' '};
+  if(c==='u'){const h=src.slice(i+2,i+6);if(!/^[0-9a-fA-F]{4}$/.test(h))throw new CE('illegal unicode escape',line);i+=6;return String.fromCharCode(parseInt(h,16))}
+  if(c!==undefined&&c in m){i+=2;return m[c]}throw new CE('illegal escape character in literal',line)};
+ while(i<n){const c=src[i];
+  if(c==='\n'){line++;i++;continue}
+  if(c===' '||c==='\t'||c==='\r'||c==='\f'){i++;continue}
+  if(c==='/'&&src[i+1]==='/'){while(i<n&&src[i]!=='\n')i++;continue}
+  if(c==='/'&&src[i+1]==='*'){const l0=line;i+=2;while(i<n&&!(src[i]==='*'&&src[i+1]==='/')){if(src[i]==='\n')line++;i++}if(i>=n)throw new CE('unclosed comment',l0);i+=2;continue}
+  const s=i;
+  if(/[0-9]/.test(c)||(c==='.'&&/[0-9]/.test(src[i+1]||''))){
+   const m=/^(?:0[xX][0-9a-fA-F_]+|0[bB][01_]+|[0-9][0-9_]*(\.[0-9_]*)?([eE][+-]?[0-9]+)?|\.[0-9_]+([eE][+-]?[0-9]+)?)([dDfFlL])?/.exec(src.slice(i));
+   i+=m[0].length;let txt=m[0].replace(/_/g,'');const suf=(m[4]||'').toLowerCase();if(suf)txt=txt.slice(0,-1);
+   let v;
+   if(/^0[xX]/.test(txt))v={t:'int',v:parseInt(txt.slice(2),16)};else if(/^0[bB]/.test(txt))v={t:'int',v:parseInt(txt.slice(2),2)};
+   else if(suf==='d'||suf==='f'||m[1]||m[2]||m[3]||txt[0]==='.')v={t:suf==='f'?'float':'double',v:suf==='f'?Math.fround(parseFloat(txt)):parseFloat(txt)};
+   else v={t:'int',v:parseInt(txt,10)};
+   if(suf==='l')v.t='long';
+   if(v.t==='int'&&v.v>2147483648)throw new CE('integer number too large',line);
+   if(/[A-Za-z_$]/.test(src[i]||''))throw new CE("';' expected",line);
+   v.lit=true;T.push({t:'lit',v,line,s,e:i});continue}
+  if(c==="'"){i++;let ch;if(src[i]==='\\')ch=esc();else if(src[i]==="'"||src[i]==='\n'||i>=n)throw new CE('empty character literal',line);else{ch=src[i];i++}
+   if(src[i]!=="'")throw new CE('unclosed character literal',line);i++;
+   T.push({t:'lit',v:{t:'char',v:ch.charCodeAt(0),lit:true},line,s,e:i});continue}
+  if(c==='"'){i++;let str='';for(;;){if(i>=n||src[i]==='\n')throw new CE('unclosed string literal',line);if(src[i]==='"'){i++;break}if(src[i]==='\\')str+=esc();else str+=src[i++]}
+   T.push({t:'lit',v:{t:'Strlit',s:str},line,s,e:i});continue}
+  if(/[A-Za-z_$]/.test(c)){while(i<n&&/[\w$]/.test(src[i]))i++;const w=src.slice(s,i);
+   if(w==='true'||w==='false')T.push({t:'lit',v:{t:'boolean',v:w==='true'},line,s,e:i});
+   else if(w==='null')T.push({t:'lit',v:{t:'null'},line,s,e:i});
+   else T.push({t:KW.has(w)?'kw':'id',v:w,line,s,e:i});continue}
+  const op=OPS.find(o=>src.startsWith(o,i));if(!op)throw new CE(`illegal character: '${c}'`,line);
+  i+=op.length;T.push({t:'op',v:op,line,s,e:i})}
+ return T}
+
+function parse(T){
+ let i=0;const imports=[],stmtLines=new Set(),classes=[];
+ const pk=(o=0)=>T[i+o];
+ const at=(t,v)=>{const x=T[i];return!!x&&x.t===t&&(v===undefined||x.v===v)};
+ const isOp=v=>at('op',v),isKw=v=>at('kw',v);
+ const L=()=>(T[i]||T[T.length-1]||{line:1}).line;
+ const fail=m=>{throw new CE(m,L())};
+ const need=v=>{if(isOp(v)||isKw(v))return T[i++];const prev=T[i-1];if(i>=T.length&&v==='}')throw new CE('reached end of file while parsing',prev?prev.line:1);throw new CE(`'${v}' expected`,(v===';'||v===')')&&prev?prev.line:L())};
+ const ident=()=>{if(at('id'))return T[i++].v;fail('<identifier> expected')};
+ const nd=(o,s)=>{o.s=s;o.z=T[i-1].e;o.line=T[i-1].line;return o};
+ const skipGen=()=>{if(isOp('<')){let d=0;do{if(isOp('<'))d++;else if(isOp('>'))d--;else if(isOp('>>'))d-=2;i++}while(d>0&&i<T.length)}};
+ function type(){let b;
+  if(at('kw')&&(PRIM.has(T[i].v)||T[i].v==='void'||T[i].v==='var'))b=T[i++].v;
+  else if(at('id')){b=T[i++].v;skipGen()}else fail('<identifier> expected');
+  while(isOp('[')&&pk(1)&&pk(1).v===']'){i+=2;b+='[]'}
+  return b}
+ function looksDecl(){const a=T[i];if(!a)return false;
+  if(a.t==='kw'&&(PRIM.has(a.v)||a.v==='final'||a.v==='var'))return true;
+  if(a.t!=='id')return false;let j=i+1;
+  if(T[j]&&T[j].t==='op'&&T[j].v==='<'){let d=0;do{const x=T[j];if(x.v==='<')d++;else if(x.v==='>')d--;else if(x.v==='>>')d-=2;j++}while(d>0&&j<T.length)}
+  while(T[j]&&T[j].v==='['&&T[j+1]&&T[j+1].v===']')j+=2;
+  return!!T[j]&&T[j].t==='id'}
+ function mods(){const m={vis:'',static:false,final:false};for(;;){if(at('kw')&&['public','private','protected'].includes(T[i].v))m.vis=T[i++].v;else if(isKw('static')){i++;m.static=true}else if(isKw('final')){i++;m.final=true}else if(isKw('abstract')){i++}else if(isOp('@')){i+=2}else break}return m}
+ function params(){need('(');const ps=[];if(!isOp(')')){do{if(ps.length)i++;if(isKw('final'))i++;let t=type();const n=ident();while(isOp('[')){i++;need(']');t+='[]'}ps.push({t,n})}while(isOp(','))}need(')');return ps}
+ function member(C){const line=L();const m=mods();
+  if(at('id',C.name)&&pk(1)&&pk(1).v==='('){i++;const ps=params();const body=block();C.ctors.push({ctor:true,name:C.name,params:ps,body,line,vis:m.vis,endLine:T[i-1].line});return}
+  if(at('id')&&pk(1)&&pk(1).v==='(')fail('invalid method declaration; return type required');
+  const t=type();const name=ident();
+  if(isOp('(')){const ps=params();let body=null;if(isOp(';'))i++;else body=block();C.methods.push({name,ret:t,params:ps,body,static:m.static,vis:m.vis,line,endLine:T[i-1].line});return}
+  let nm=name;for(;;){let ft=t;while(isOp('[')){i++;need(']');ft+='[]'}let init=null;if(isOp('=')){i++;init=isOp('{')?arrInit():expr()}
+   C.fields.push({name:nm,type:ft,init,static:m.static,final:m.final,vis:m.vis,line});if(isOp(',')){i++;nm=ident();continue}break}
+  need(';')}
+ function block(){const line=L();need('{');const b=[];while(!isOp('}')){if(i>=T.length)throw new CE('reached end of file while parsing',T[T.length-1].line);b.push(stmt())}i++;return{k:'block',b,line}}
+ function stmt(){const line=L();
+  if(isOp('{'))return block();
+  if(isOp(';')){i++;return{k:'empty',line}}
+  if(isKw('if')){stmtLines.add(line);i++;need('(');const c=expr();need(')');const th=stmt();let el=null;if(isKw('else')){i++;el=stmt()}return{k:'if',c,th,el,line}}
+  if(isKw('while')){stmtLines.add(line);i++;need('(');const c=expr();need(')');return{k:'while',c,body:stmt(),line}}
+  if(isKw('do')){i++;const body=stmt();if(!isKw('while'))fail("'while' expected");const wline=L();stmtLines.add(wline);i++;need('(');const c=expr();need(')');need(';');return{k:'do',c,body,line,wline}}
+  if(isKw('for')){stmtLines.add(line);i++;need('(');
+   if(looksDecl()){const save=i;if(isKw('final'))i++;const t=type();const n=ident();if(isOp(':')){i++;const it=expr();need(')');return{k:'foreach',t,n,it,body:stmt(),line}}i=save}
+   let init=[];if(!isOp(';')){if(looksDecl())init=[localDecl()];else{init.push({k:'expr',e:expr(),line});while(isOp(',')){i++;init.push({k:'expr',e:expr(),line})}}}need(';');
+   const c=isOp(';')?null:expr();need(';');
+   const upd=[];if(!isOp(')')){upd.push(expr());while(isOp(',')){i++;upd.push(expr())}}need(')');
+   return{k:'for',init,c,upd,body:stmt(),line}}
+  if(isKw('switch')){stmtLines.add(line);i++;need('(');const e=expr();need(')');need('{');const cases=[];
+   while(!isOp('}')){if(i>=T.length)fail('reached end of file while parsing');
+    if(isKw('case')){i++;const labs=[expr()];while(isOp(',')){i++;labs.push(expr())}
+     if(isOp('->')){i++;const b=stmt();cases.push({labs,body:[b,{k:'break',line:b.line,silent:true}]});continue}
+     need(':');cases.push({labs,body:[]})}
+    else if(isKw('default')){i++;if(isOp('->')){i++;const b=stmt();cases.push({labs:null,body:[b,{k:'break',line:b.line,silent:true}]});continue}need(':');cases.push({labs:null,body:[]})}
+    else{if(!cases.length)fail("case, default, or '}' expected");cases[cases.length-1].body.push(stmt())}}
+   i++;return{k:'switch',e,cases,line}}
+  if(isKw('break')){stmtLines.add(line);i++;need(';');return{k:'break',line}}
+  if(isKw('continue')){stmtLines.add(line);i++;need(';');return{k:'continue',line}}
+  if(isKw('return')){stmtLines.add(line);i++;const e=isOp(';')?null:expr();need(';');return{k:'return',e,line}}
+  if(isKw('else'))fail("'else' without 'if'");
+  stmtLines.add(line);
+  if(looksDecl()){const d=localDecl();need(';');return d}
+  const e=expr();
+  if(!['assign','pre','post','call','new','thiscall'].includes(e.k)){if(isOp(';'))throw new CE('not a statement',line);}
+  need(';');
+  return{k:'expr',e,line}}
+ function localDecl(){const line=L();let fin=false;if(isKw('final')){i++;fin=true}const t=type();const ds=[];
+  do{if(ds.length)i++;const n=ident();let tt=t;while(isOp('[')){i++;need(']');tt+='[]'}let init=null;if(isOp('=')){i++;init=isOp('{')?arrInit():expr()}ds.push({n,t:tt,init})}while(isOp(','));
+  return{k:'decl',ds,fin,line}}
+ function arrInit(){const s=T[i].s;need('{');const el=[];while(!isOp('}')){el.push(isOp('{')?arrInit():expr());if(isOp(','))i++;else break}need('}');return nd({k:'arrlit',el},s)}
+ const expr=()=>assign();
+ const AOPS=['=','+=','-=','*=','/=','%=','&=','|=','^=','<<=','>>=','>>>='];
+ function assign(){const s=T[i]?T[i].s:0;const l=tern();if(at('op')&&AOPS.includes(T[i].v)){const op=T[i++].v;let x=l;while(x.k==='paren')x=x.e;if(!['var','idx','fld'].includes(x.k))throw new CE('unexpected type\n  required: variable\n  found:    value',L());const r=isOp('{')?arrInit():assign();return nd({k:'assign',op,l,r},s)}return l}
+ function tern(){const s=T[i]?T[i].s:0;const c=bin(0);if(isOp('?')){i++;const a=tern();need(':');const b=tern();return nd({k:'tern',c,a,b},s)}return c}
+ const PREC=[['||'],['&&'],['|'],['^'],['&'],['==','!='],['<','>','<=','>='],['<<','>>','>>>'],['+','-'],['*','/','%']];
+ function bin(p){if(p===PREC.length)return unary();const s=T[i]?T[i].s:0;let l=bin(p+1);while(at('op')&&PREC[p].includes(T[i].v)){const op=T[i++].v;const r=bin(p+1);l=nd({k:'bin',op,l,r},s)}return l}
+ function unary(){const s=T[i]?T[i].s:0;
+  if(at('op')&&['+','-','!','~'].includes(T[i].v)){const op=T[i++].v;const e=unary();return nd({k:'un',op,e},s)}
+  if(isOp('++')||isOp('--')){const op=T[i++].v;const e=unary();return nd({k:'pre',op,e},s)}
+  if(isOp('(')&&pk(1)&&pk(1).t==='kw'&&PRIM.has(pk(1).v)){i++;let t=T[i++].v;while(isOp('[')){i+=2;t+='[]'}need(')');const e=unary();return nd({k:'cast',t,e},s)}
+  return postfix()}
+ function args(){need('(');const a=[];if(!isOp(')')){a.push(expr());while(isOp(',')){i++;a.push(expr())}}need(')');return a}
+ function postfix(){const s=T[i]?T[i].s:0;let e=primary();
+  for(;;){
+   if(isOp('.')){i++;const n=ident();if(isOp('(')){const a=args();e=nd({k:'call',obj:e,n,args:a},s)}else e=nd({k:'fld',obj:e,n},s);continue}
+   if(isOp('[')){i++;const ix=expr();need(']');e=nd({k:'idx',a:e,ix},s);continue}
+   if(isOp('++')||isOp('--')){const op=T[i++].v;e=nd({k:'post',op,e},s);continue}
+   break}
+  return e}
+ function primary(){const t=T[i];if(!t)throw new CE('reached end of file while parsing',T[T.length-1].line);const s=t.s;
+  if(t.t==='lit'){i++;return nd({k:'lit',v:t.v},s)}
+  if(t.t==='kw'&&t.v==='this'){i++;if(isOp('('))return nd({k:'thiscall',args:args()},s);return nd({k:'this'},s)}
+  if(t.t==='kw'&&t.v==='new'){i++;let bt;if(at('kw')&&PRIM.has(T[i].v))bt=T[i++].v;else{bt=ident();skipGen()}
+   if(isOp('('))return nd({k:'new',cls:bt,args:args()},s);
+   const dims=[];let extra=0;
+   while(isOp('[')){i++;if(isOp(']')){i++;extra++}else{if(extra)fail("']' expected");dims.push(expr());need(']')}}
+   if(!dims.length){if(isOp('{')){const a=arrInit();a.t=bt+'[]'.repeat(extra);a.s=s;return a}fail('array dimension missing')}
+   return nd({k:'newarr',bt,dims,extra},s)}
+  if(t.t==='id'){i++;if(isOp('('))return nd({k:'call',obj:null,n:t.v,args:args()},s);return nd({k:'var',n:t.v},s)}
+  if(isOp('(')){i++;const e=expr();need(')');return nd({k:'paren',e},s)}
+  if(t.t==='kw'&&PRIM.has(t.v))fail(`'.class' expected`);
+  fail('illegal start of expression')}
+ while(i<T.length){
+  if(isKw('import')){i++;let nm='';while(i<T.length&&!isOp(';'))nm+=T[i++].v;need(';');imports.push(nm);continue}
+  if(at('id','package')){while(i<T.length&&!isOp(';'))i++;need(';');continue}
+  const line=L();const m=mods();
+  if(!isKw('class'))fail('class, interface, enum, or record expected');i++;
+  const name=ident();let ext=null;if(isKw('extends')){i++;ext=ident()}
+  if(at('id','implements')){i++;ident();while(isOp(',')){i++;ident()}}
+  need('{');const C={name,ext,fields:[],methods:[],ctors:[],line,pub:m.vis==='public'};
+  while(!isOp('}')){if(i>=T.length)throw new CE('reached end of file while parsing',T[T.length-1].line);member(C)}i++;
+  classes.push(C)}
+ return{classes,imports,stmtLines}}
+
+function fmtD(v){if(Number.isNaN(v))return'NaN';if(v===Infinity)return'Infinity';if(v===-Infinity)return'-Infinity';if(v===0)return Object.is(v,-0)?'-0.0':'0.0';
+ const a=Math.abs(v);if(a>=1e7||a<1e-3){let[m,e]=v.toExponential().split('e');if(!m.includes('.'))m+='.0';return m+'E'+(+e)}
+ let s=String(v);if(!s.includes('.'))s+='.0';return s}
+function fmtF(v){if(!Number.isFinite(v)||v===0)return fmtD(v);for(let p=1;p<=9;p++){const x=+v.toPrecision(p);if(Math.fround(x)===v)return fmtD(x)}return fmtD(v)}
+function wrap32(v){v=v%4294967296;if(v>=2147483648)v-=4294967296;else if(v<-2147483648)v+=4294967296;return v}
+function mk(t,v){switch(t){case'int':return{t,v:wrap32(v)};case'char':return{t,v:((v%65536)+65536)%65536};
+ case'byte':{let x=wrap32(v)&255;return{t,v:x>127?x-256:x}}case'short':{let x=wrap32(v)&65535;return{t,v:x>32767?x-65536:x}}
+ case'long':return{t,v:Math.trunc(v)};case'float':return{t,v:Math.fround(v)};default:return{t,v}}}
+function numConv(x,t){if(x.t===t)return x;let v=x.v;
+ if((x.t==='double'||x.t==='float')&&t!=='double'&&t!=='float'){if(Number.isNaN(v))v=0;v=Math.trunc(v);
+  if(t==='long')v=Math.max(-9223372036854775808,Math.min(9223372036854775807,v));else{v=Math.max(-2147483648,Math.min(2147483647,v));if(t==='int')return{t,v}}}
+ return mk(t,v)}
+const isP=x=>x!==null&&typeof x==='object'&&'t' in x;
+function tyOf(x){if(x===undefined)return'void';if(x===null)return'null';if(isP(x))return x.t;switch(x.k){case'str':return'String';case'arr':return x.et+'[]';case'obj':return x.cls;case'sb':return'StringBuilder';case'scan':return'Scanner';case'rnd':return'Random';default:return'Object'}}
+const B=b=>({t:'boolean',v:!!b});
+const chr=c=>String.fromCharCode(c);
+function primS(v){switch(v.t){case'char':return chr(v.v);case'boolean':return String(v.v);case'double':return fmtD(v.v);case'float':return fmtF(v.v);default:return String(v.v)}}
+function show(v){if(v===undefined)return'(void)';if(v===null)return'null';if(isP(v)){if(v.t==='char'){const m={10:'\\n',9:'\\t',0:'\\u0000',13:'\\r'};return"'"+(m[v.v]||chr(v.v))+"'"}return primS(v)}if(v.k==='str')return JSON.stringify(v.s);if(v.k==='sb')return'StringBuilder "'+v.s+'"';return tyOf(v)+' #'+v.id}
+const hash=id=>((id*2654435761)>>>0).toString(16);
+function arrPfx(et){const m={int:'[I',double:'[D',char:'[C',boolean:'[Z',long:'[J',float:'[F',byte:'[B',short:'[S'};if(m[et])return m[et];if(et.endsWith('[]'))return'['+arrPfx(et.slice(0,-2));return'[L'+(et==='String'?'java.lang.String':et)+';'}
+function cmpStr(a,b){const L=Math.min(a.length,b.length);for(let k=0;k<L;k++){const d=a.charCodeAt(k)-b.charCodeAt(k);if(d)return d}return a.length-b.length}
+function JRandom(seed){const M=(1n<<48n)-1n;let s=(BigInt.asUintN(64,BigInt(Math.trunc(seed)))^0x5DEECE66Dn)&M;
+ const next=bits=>{s=(s*0x5DEECE66Dn+0xBn)&M;return Number(BigInt.asIntN(32,s>>(48n-BigInt(bits))))};
+ return{nextInt(n){if(n===undefined)return next(32);if((n&-n)===n)return Number((BigInt(n)*BigInt(next(31)))>>31n);let bits,val;do{bits=next(31);val=bits%n}while(wrap32(bits-val+(n-1))<0);return val},
+  nextDouble(){return(next(26)*134217728+next(27))*2**-53},nextBoolean(){return next(1)!==0}}}
+
+function run(src,opt={}){
+ const R={out:[],outLen:0,snaps:[],cov:{},err:null,classes:[],stmtLines:new Set(),truncated:false,steps:0};
+ let P;
+ try{P=parse(lex(src))}catch(e){if(e instanceof CE){R.err=e;return R}throw e}
+ R.classes=P.classes;R.stmtLines=P.stmtLines;
+ const CL=new Map();
+ for(const c of P.classes){if(CL.has(c.name)){R.err=new CE(`duplicate class: ${c.name}`,c.line);return R}CL.set(c.name,c)}
+ const hasImport=n=>P.imports.some(s=>s===NEEDIMPORT[n]+'.'+n||s===NEEDIMPORT[n]+'.*');
+ let line=0,steps=0,nid=1,recording=opt.record!==false;
+ const stack=[],statics=new Map(),allocs=[],interned=new Map();
+ const LIMIT=opt.limit||200000,MAXS=opt.maxSnaps||2500;
+ const inp=(opt.stdin||'').replace(/\r/g,'');let ip=0,echoed=0;
+ const xt=opt.xtrace||null;
+ const OUT={k:'out'},IN={k:'in'};
+ const pubC=P.classes.find(c=>c.pub)||P.classes[0];
+ const fileName=opt.file||((pubC?pubC.name:'Main')+'.java');
+ const txt=e=>e&&e.s!=null?src.slice(e.s,e.z):'?';
+ const frame=()=>stack[stack.length-1];
+ const emit=(s,inpt=false)=>{if(!s)return;const last=R.out[R.out.length-1];if(last&&last.inp===inpt)last.s+=s;else R.out.push({s,inp:inpt});R.outLen+=s.length;if(R.outLen>200000)throw thr('ExecutionLimit','Output limit reached — is there an infinite loop?')};
+ const setLine=l=>{line=l;if(stack.length)frame().line=l;R.cov[l]=(R.cov[l]||0)+1};
+ function thr(ex,msg){const e=new RX(ex,msg,line,stack.slice().reverse().map(f=>`${f.cls}.${f.mname}(${fileName}:${f.line})`));if(recording&&!R.snaps.some(s=>s.end))snap(true);return e}
+ const tick=()=>{if(++steps>LIMIT)throw thr('ExecutionLimit',`Stopped after ${LIMIT.toLocaleString()} steps — is there an infinite loop?`)};
+ const newRef=o=>{o.id=nid++;if(o.k==='arr'||o.k==='obj'||o.k==='sb')allocs.push(o);return o};
+ const intern=s=>{if(!interned.has(s))interned.set(s,newRef({k:'str',s}));return interned.get(s)};
+ const newStr=s=>newRef({k:'str',s});
+ const defv=t=>{switch(t){case'int':case'long':case'short':case'byte':return{t,v:0};case'double':case'float':return{t,v:0};case'char':return{t:'char',v:0};case'boolean':return B(false);default:return null}};
+
+ function snap(end){if(!recording)return;if(R.snaps.length>=MAXS){R.truncated=true;return}
+  const seen=new Set(),H=[];
+  const dv=v=>{if(v===undefined)return{k:'u'};if(v===null)return{k:'null'};if(isP(v))return{k:'p',t:v.t,s:show(v)};if(v.k==='str')return{k:'s',s:v.s,id:v.id};if(v.id===0)return{k:'o',s:'String[0]'};if(v.k==='scan'||v.k==='rnd'||v.k==='in'||v.k==='out')return{k:'o',s:tyOf(v)};walk(v);return{k:'r',id:v.id}};
+  const walk=(o,g)=>{if(seen.has(o.id))return;seen.add(o.id);const h={id:o.id,g:!!g};H.push(h);
+   if(o.k==='arr'){h.k='arr';h.t=o.et+'[]';h.a=o.a.map(dv)}else if(o.k==='obj'){h.k='obj';h.cls=o.cls;h.f=[...o.f].map(([n,c])=>[n,c.t,dv(c.v)])}else{h.k='sb';h.s=o.s}};
+  const frames=stack.map(fr=>({label:fr.label,line:fr.line,self:fr.self?dv(fr.self):null,vars:fr.scopes.flatMap(sc=>[...sc].map(([n,c])=>[n,c.t,dv(c.v)]))}));
+  const st=[];for(const[cn,m]of statics)for(const[n,c]of m)st.push([cn+'.'+n,c.t,dv(c.v)]);
+  let gc=0;for(let k=allocs.length-1;k>=0&&gc<16;k--){const o=allocs[k];if(!seen.has(o.id)){gc++;walk(o,true)}}
+  R.snaps.push({line:end?(R.snaps.length?line:line):line,frames,H,st,out:R.outLen,end:!!end})}
+
+ function conv(x,t,ln,mode){
+  if(x===undefined)throw new CE("'void' type not allowed here",ln);
+  if(t==='var')return x;
+  if(PRIM.has(t)){
+   if(x===null||!isP(x))throw new CE(`incompatible types: ${tyOf(x)} cannot be converted to ${t}`,ln);
+   if(x.t===t)return x;
+   if(t==='boolean'||x.t==='boolean')throw new CE(`incompatible types: ${x.t} cannot be converted to ${t}`,ln);
+   const widen=RANK[t]>RANK[x.t]&&t!=='char'&&!(x.t==='char'&&t==='short');
+   if(!widen&&mode!=='cast'&&!(x.lit&&x.t==='int'&&(t==='char'||t==='byte'||t==='short')))throw new CE(`incompatible types: possible lossy conversion from ${x.t} to ${t}`,ln);
+   return numConv(x,t)}
+  if(x===null)return null;
+  if(isP(x)){if(BOX[t]===x.t||t==='Object')return x;throw new CE(`incompatible types: ${x.t} cannot be converted to ${t}`,ln)}
+  const xt=tyOf(x);if(xt===t||t==='Object')return x;
+  throw new CE(`incompatible types: ${xt} cannot be converted to ${t}`,ln)}
+ const castTo=(t,v)=>{if(BOX[t])t=BOX[t];if(!PRIM.has(t))return conv(v,t,line,'assign');if(!isP(v))throw new CE(`incompatible types: ${tyOf(v)} cannot be converted to ${t}`,line);if((t==='boolean')!==(v.t==='boolean'))throw new CE(`incompatible types: ${v.t} cannot be converted to ${t}`,line);return numConv(v,t)};
+ function checkType(t,ln){const b=t.replace(/\[\]/g,'');if(PRIM.has(b)||b==='var'||b==='void'||CL.has(b))return;
+  if(!KNOWN.has(b))throw new CE(`cannot find symbol\n  symbol:   class ${b}`,ln);
+  if(NEEDIMPORT[b]&&!hasImport(b))throw new CE(`cannot find symbol\n  symbol:   class ${b}\n  (add the line: import java.util.${b};)`,ln)}
+ const str=v=>{if(v===undefined)throw new CE("'void' type not allowed here",line);if(v===null)return'null';if(isP(v))return primS(v);
+  switch(v.k){case'str':case'sb':return v.s;case'arr':return arrPfx(v.et)+'@'+hash(v.id);
+   case'obj':{const C=CL.get(v.cls);const m=C&&C.methods.find(m=>m.name==='toString'&&!m.params.length&&!m.static);if(m)return str(invoke(C,m,v,[]));return v.cls+'@'+hash(v.id)}
+   case'scan':return'java.util.Scanner';case'rnd':return'java.util.Random@'+hash(v.id);default:return'?'}};
+ const cond=v=>{if(!isP(v)||v.t!=='boolean')throw new CE(`incompatible types: ${tyOf(v)} cannot be converted to boolean`,line);return v.v};
+ function findLocal(n){const f=frame();for(let k=f.scopes.length-1;k>=0;k--){const c=f.scopes[k].get(n);if(c)return c}return null}
+ const fieldCell=(cls,n)=>{const m=statics.get(cls);return m&&m.get(n)};
+ function lookup(n){const c=findLocal(n);if(c)return c;const f=frame();if(f.self&&f.self.f.has(n))return f.self.f.get(n);const s=fieldCell(f.cls,n);if(s)return s;
+  const C=CL.get(f.cls);if(C&&C.fields.some(x=>x.name===n&&!x.static))throw new CE(`non-static variable ${n} cannot be referenced from a static context`,line);return null}
+ const staticClassName=o=>o.k==='var'&&(CL.has(o.n)||KNOWN.has(o.n))&&!findLocal(o.n)&&!(frame().self&&frame().self.f.has(o.n))&&!fieldCell(frame().cls,o.n)?o.n:null;
+ const privCheck=(cls,n)=>{const f=CL.get(cls).fields.find(x=>x.name===n);if(f&&f.vis==='private'&&frame().cls!==cls)throw new CE(`${n} has private access in ${cls}`,line)};
+ const staticType=e=>{try{if(e.k==='var'){const c=lookup(e.n);return c?c.t:'Object'}if(e.k==='fld'){const cn=e.obj.k==='this'?frame().cls:null;const ot=cn||staticType(e.obj);const C=CL.get(ot);const f=C&&C.fields.find(x=>x.name===e.n);return f?f.type:'Object'}}catch(x){}return'Object'};
+ const uninit=e=>{throw new CE(`variable ${txt(e)} might not have been initialized`,line)};
+ const idxVal=v=>{if(!isP(v)||v.t==='boolean')throw new CE(`incompatible types: ${tyOf(v)} cannot be converted to int`,line);if(v.t==='long'||v.t==='double'||v.t==='float')throw new CE(`incompatible types: possible lossy conversion from ${v.t} to int`,line);return v.v};
+ const chkArr=(a,ex,store)=>{if(a===null)throw thr('NullPointerException',`Cannot ${store?'store to':'load from'} array because "${txt(ex)}" is null`);if(!a||a.k!=='arr')throw new CE(`array required, but ${tyOf(a)} found`,line)};
+ const bounds=(a,ix)=>{if(ix<0||ix>=a.a.length)throw thr('ArrayIndexOutOfBoundsException',`Index ${ix} out of bounds for length ${a.a.length}`)};
+
+ function ev(e){const v=ev0(e);if(xt&&e.s>=xt.s&&e.z<=xt.e)xt.list.push({s:e.s,e:e.z,k:e.k,op:e.op,v:show(v),t:tyOf(v)});return v}
+ function ev0(e){
+  switch(e.k){
+  case'lit':{const v=e.v;if(v.t==='Strlit')return intern(v.s);if(v.t==='null')return null;return v}
+  case'paren':return ev(e.e);
+  case'var':{const c=lookup(e.n);if(!c){if(CL.has(e.n)||KNOWN.has(e.n))throw new CE(`cannot find symbol\n  symbol:   variable ${e.n}`,line);throw new CE(`cannot find symbol\n  symbol:   variable ${e.n}`,line)}if(c.v===undefined)throw new CE(`variable ${e.n} might not have been initialized`,line);return c.v}
+  case'this':{const s=frame().self;if(!s)throw new CE('non-static variable this cannot be referenced from a static context',line);return s}
+  case'fld':return getField(e);
+  case'idx':{const a=ev(e.a);chkArr(a,e.a);const ix=idxVal(ev(e.ix));bounds(a,ix);return a.a[ix]}
+  case'call':return call(e);
+  case'new':return construct(e.cls,e.args.map(ev),e);
+  case'newarr':return newArr(e);
+  case'arrlit':if(!e.t)throw new CE('illegal start of expression — {…} can only start an array in a declaration; use new int[]{…}',line);return arrLit(e,e.t);
+  case'un':return unop(e.op,ev(e.e));
+  case'pre':case'post':{const lv=lval(e.e);const cur=lv.get();if(cur===undefined)uninit(e.e);if(!isP(cur)||cur.t==='boolean')throw new CE(`bad operand type ${tyOf(cur)} for unary operator '${e.op}'`,line);const nv=numConv(arith(e.op[0],cur,{t:'int',v:1}),cur.t);lv.set(nv);return e.k==='pre'?nv:cur}
+  case'cast':return castTo(e.t,ev(e.e));
+  case'bin':return binop(e);
+  case'tern':return cond(ev(e.c))?ev(e.a):ev(e.b);
+  case'assign':return assign(e);
+  case'thiscall':{const f=frame();const C=CL.get(f.cls);const a=e.args.map(ev);const m=pick(C.ctors,a,C.name,C.name);invoke(C,m,f.self,a);return undefined}
+  }
+  throw new CE('unsupported expression',line)}
+ function lval(e){while(e.k==='paren')e=e.e;
+  if(e.k==='var'){const c=lookup(e.n);if(!c)throw new CE(`cannot find symbol\n  symbol:   variable ${e.n}`,line);return{t:c.t,get:()=>c.v,set:v=>{if(c.fin&&c.v!==undefined)throw new CE(`cannot assign a value to final variable ${e.n}`,line);c.v=v}}}
+  if(e.k==='fld'){const c=fieldRef(e);if(!c)throw new CE(`cannot assign a value to ${txt(e)}`,line);return{t:c.t,get:()=>c.v,set:v=>{if(c.fin&&c.done)throw new CE(`cannot assign a value to final variable ${e.n}`,line);c.v=v;c.done=true}}}
+  if(e.k==='idx'){const a=ev(e.a);chkArr(a,e.a,true);const ix=idxVal(ev(e.ix));bounds(a,ix);return{t:a.et,get:()=>a.a[ix],set:v=>{a.a[ix]=v}}}
+  throw new CE('unexpected type\n  required: variable\n  found:    value',line)}
+ function fieldRef(e){const cn=staticClassName(e.obj);
+  if(cn){if(!CL.has(cn))return null;const c=fieldCell(cn,e.n);if(!c){if(CL.get(cn).fields.some(f=>f.name===e.n))throw new CE(`non-static variable ${e.n} cannot be referenced from a static context`,line);throw new CE(`cannot find symbol\n  symbol:   variable ${e.n}\n  location: class ${cn}`,line)}privCheck(cn,e.n);return c}
+  const o=ev(e.obj);
+  if(o===null)throw thr('NullPointerException',`Cannot assign field "${e.n}" because "${txt(e.obj)}" is null`);
+  if(o&&o.k==='obj'){const c=o.f.get(e.n);if(!c)throw new CE(`cannot find symbol\n  symbol:   variable ${e.n}\n  location: class ${o.cls}`,line);privCheck(o.cls,e.n);return c}
+  if(o&&o.k==='arr'&&e.n==='length')throw new CE('cannot assign a value to final variable length',line);
+  throw new CE(`cannot find symbol\n  symbol:   variable ${e.n}`,line)}
+ function getField(e){const cn=staticClassName(e.obj);
+  if(cn&&!CL.has(cn))return builtinField(cn,e.n);
+  if(cn)return fieldRef(e).v;
+  const o=ev(e.obj);
+  if(o===null)throw thr('NullPointerException',`Cannot read field "${e.n}" because "${txt(e.obj)}" is null`);
+  if(isP(o))throw new CE(`${o.t} cannot be dereferenced`,line);
+  if(o.k==='arr'){if(e.n==='length')return{t:'int',v:o.a.length};throw new CE(`cannot find symbol\n  symbol:   variable ${e.n}`,line)}
+  if(o.k==='obj'){const c=o.f.get(e.n);if(!c)throw new CE(`cannot find symbol\n  symbol:   variable ${e.n}\n  location: class ${o.cls}`,line);privCheck(o.cls,e.n);return c.v}
+  if(o.k==='str'&&e.n==='length')throw new CE('cannot find symbol\n  symbol:   variable length\n  (for a String, call the method length() — with parentheses)',line);
+  throw new CE(`cannot find symbol\n  symbol:   variable ${e.n}`,line)}
+ function builtinField(cn,n){const F={Math:{PI:{t:'double',v:Math.PI},E:{t:'double',v:Math.E}},Integer:{MAX_VALUE:{t:'int',v:2147483647},MIN_VALUE:{t:'int',v:-2147483648}},Long:{MAX_VALUE:{t:'long',v:9223372036854775807},MIN_VALUE:{t:'long',v:-9223372036854775808}},
+  Double:{MAX_VALUE:{t:'double',v:Number.MAX_VALUE},MIN_VALUE:{t:'double',v:Number.MIN_VALUE},POSITIVE_INFINITY:{t:'double',v:Infinity},NEGATIVE_INFINITY:{t:'double',v:-Infinity},NaN:{t:'double',v:NaN}},System:{out:OUT,err:OUT,in:IN}};
+  if(F[cn]&&n in F[cn])return F[cn][n];throw new CE(`cannot find symbol\n  symbol:   variable ${n}\n  location: class ${cn}`,line)}
+ function unop(op,v){if(op==='!'){if(!isP(v)||v.t!=='boolean')throw new CE(`bad operand type ${tyOf(v)} for unary operator '!'`,line);return B(!v.v)}
+  if(!isP(v)||v.t==='boolean')throw new CE(`bad operand type ${tyOf(v)} for unary operator '${op}'`,line);
+  const t=(v.t==='char'||v.t==='byte'||v.t==='short')?'int':v.t;
+  if(op==='~'){if(t==='double'||t==='float')throw new CE(`bad operand type ${t} for unary operator '~'`,line);return mk(t,~v.v)}
+  return mk(t,op==='-'?-v.v:v.v)}
+ function arith(op,l,r){
+  const t=(l.t==='double'||r.t==='double')?'double':(l.t==='float'||r.t==='float')?'float':(l.t==='long'||r.t==='long')?'long':'int';
+  const x=l.v,y=r.v;let v;const fl=t==='double'||t==='float';
+  switch(op){case'+':v=x+y;break;case'-':v=x-y;break;case'*':v=t==='int'?Math.imul(x,y):x*y;break;
+  case'/':if(!fl){if(y===0)throw thr('ArithmeticException','/ by zero');v=Math.trunc(x/y)}else v=x/y;break;
+  case'%':if(!fl&&y===0)throw thr('ArithmeticException','/ by zero');v=x%y;break;
+  case'&':case'|':case'^':case'<<':case'>>':case'>>>':if(fl)throw new CE(`bad operand types for binary operator '${op}'`,line);v=op==='&'?x&y:op==='|'?x|y:op==='^'?x^y:op==='<<'?x<<y:op==='>>'?x>>y:x>>>y;break;
+  default:throw new CE(`bad operator ${op}`,line)}
+  return mk(t,v)}
+ function binv(op,l,r){
+  if(l===undefined||r===undefined)throw new CE("'void' type not allowed here",line);
+  if(op==='+'&&((l&&l.k==='str')||(r&&r.k==='str')))return newStr(str(l)+str(r));
+  if(op==='=='||op==='!='){let eq;if(isP(l)&&isP(r)){if((l.t==='boolean')!==(r.t==='boolean'))throw new CE(`incomparable types: ${l.t} and ${r.t}`,line);eq=l.v===r.v}else if(isP(l)||isP(r)){if(l===null||r===null)throw new CE(`bad operand types for binary operator '${op}'`,line);throw new CE(`incomparable types: ${tyOf(l)} and ${tyOf(r)}`,line)}else eq=l===r;return B(op==='=='?eq:!eq)}
+  if(!isP(l)||!isP(r))throw new CE(`bad operand types for binary operator '${op}'\n  first type:  ${tyOf(l)}\n  second type: ${tyOf(r)}`,line);
+  if(l.t==='boolean'||r.t==='boolean'){if(l.t===r.t&&(op==='&'||op==='|'||op==='^'))return B(op==='&'?l.v&&r.v:op==='|'?l.v||r.v:l.v!==r.v);throw new CE(`bad operand types for binary operator '${op}'\n  first type:  ${l.t}\n  second type: ${r.t}`,line)}
+  if(op==='<')return B(l.v<r.v);if(op==='>')return B(l.v>r.v);if(op==='<=')return B(l.v<=r.v);if(op==='>=')return B(l.v>=r.v);
+  return arith(op,l,r)}
+ function binop(e){const op=e.op;
+  if(op==='&&'||op==='||'){const l=ev(e.l);if(!isP(l)||l.t!=='boolean')throw new CE(`bad operand types for binary operator '${op}'`,line);if(op==='&&'&&!l.v)return B(false);if(op==='||'&&l.v)return B(true);const r=ev(e.r);if(!isP(r)||r.t!=='boolean')throw new CE(`bad operand types for binary operator '${op}'`,line);return B(r.v)}
+  return binv(op,ev(e.l),ev(e.r))}
+ function assign(e){const lv=lval(e.l);
+  if(e.op==='='){let v;if(e.r.k==='arrlit'&&!e.r.t)throw new CE('illegal start of expression — {…} can only start an array in a declaration; use new int[]{…}',line);v=ev(e.r);const cv=conv(v,lv.t,line,'assign');lv.set(cv);return cv}
+  const cur=lv.get();if(cur===undefined)uninit(e.l);const r=ev(e.r);const op=e.op.slice(0,-1);let res=binv(op,cur,r);
+  if(lv.t==='String'){if(op!=='+')throw new CE(`bad operand types for binary operator '${op}'`,line);lv.set(res);return res}
+  res=castTo(lv.t,res);lv.set(res);return res}
+ function newArr(e){checkType(e.bt,line);
+  const dims=e.dims.map(d=>{const v=idxVal(ev(d));if(v<0)throw thr('NegativeArraySizeException',String(v));return v});
+  const make=lvl=>{const et=e.bt+'[]'.repeat(dims.length-lvl-1+e.extra);const arr=newRef({k:'arr',et,a:[]});for(let q=0;q<dims[lvl];q++)arr.a.push(lvl<dims.length-1?make(lvl+1):defv(et));return arr};
+  return make(0)}
+ function arrLit(e,t){if(!t.endsWith('[]'))throw new CE(`illegal initializer for ${t}`,line);const et=t.slice(0,-2);const arr=newRef({k:'arr',et,a:[]});
+  for(const el of e.el)arr.a.push(el.k==='arrlit'&&!el.t?arrLit(el,et):conv(ev(el),et,line,'assign'));return arr}
+ function compat(a,p){if(a===p)return 0;
+  if(PRIM.has(p)){if(!PRIM.has(a)||a==='boolean'||p==='boolean')return Infinity;if(RANK[p]>RANK[a]&&p!=='char'&&!(a==='char'&&p==='short'))return RANK[p]-RANK[a];return Infinity}
+  if(a==='null')return 0;if(p==='Object')return 20;if(BOX[p]===a)return 10;return Infinity}
+ const sig=m=>`${m.name}(${m.params.map(p=>p.t).join(',')})`;
+ function pick(cands,a,name,cn){const at=a.map(tyOf);let best=null,bs=Infinity,tie=false;
+  for(const m of cands){if(m.params.length!==a.length)continue;let s=0;for(let j=0;j<a.length&&s<Infinity;j++)s+=compat(at[j],m.params[j].t);if(s<bs){bs=s;best=m;tie=false}else if(s===bs&&s<Infinity)tie=true}
+  if(!best){if(cands.length===1){const m0=cands[0];throw new CE(`${m0.ctor?'constructor':'method'} ${name} in class ${cn} cannot be applied to given types;\n  required: ${m0.params.map(p=>p.t).join(',')||'no arguments'}\n  found:    ${at.join(',')||'no arguments'}`,line)}
+   throw new CE(`no suitable ${cands[0]&&cands[0].ctor?'constructor':'method'} found for ${name}(${at.join(',')})`,line)}
+  if(tie)throw new CE(`reference to ${name} is ambiguous`,line);return best}
+ function invoke(C,m,self,a){
+  if(stack.length>=900)throw thr('StackOverflowError','');
+  const callLine=line;const sc=new Map();
+  const fr={label:m.ctor?`new ${C.name}(${m.params.map(p=>p.t).join(', ')})`:(m.name==='main'&&m.static?'main':`${m.static?'':C.name+'.'}${m.name}(${m.params.map(p=>p.t).join(', ')})`),cls:C.name,mname:m.ctor?'<init>':m.name,scopes:[sc],self,line:m.line,isMain:!!m.isMain};
+  m.params.forEach((p,j)=>sc.set(p.n,{t:p.t,v:conv(a[j],p.t,callLine,'assign')}));
+  stack.push(fr);
+  try{
+   if(m.ctor){const f0=m.body.b[0];if(!(f0&&f0.k==='expr'&&f0.e.k==='thiscall'))initFields(C,self)}
+   if(m.isMain){tick();for(const x of m.body.b)exec(x);if(recording&&!R.snaps.some(s=>s.end))snap(true)}else exec(m.body);
+   if(m.ret&&m.ret!=='void'&&!m.ctor)throw new CE('missing return statement',m.endLine||m.line);
+   return undefined}
+  catch(x){
+   if(x instanceof Ret){if(m.ctor||!m.ret||m.ret==='void'){if(x.v!==undefined)throw new CE('incompatible types: unexpected return value',x.line);return undefined}if(x.v===undefined)throw new CE('missing return value',x.line);return conv(x.v,m.ret,x.line,'assign')}
+   if(x===BRK)throw new CE('break outside switch or loop',line);if(x===CNT)throw new CE('continue outside of loop',line);
+   throw x}
+  finally{stack.pop();line=callLine;if(stack.length)frame().line=callLine}}
+ function initFields(C,o){for(const f of C.fields)if(!f.static&&f.init){setLine(f.line);const c=o.f.get(f.name);c.v=f.init.k==='arrlit'&&!f.init.t?arrLit(f.init,f.type):conv(ev(f.init),f.type,f.line,'assign');c.done=true}}
+ function construct(cn,a,e){
+  if(cn==='Scanner'){checkType('Scanner',line);if(a[0]!==IN)throw new CE('this lab only supports new Scanner(System.in)',line);return newRef({k:'scan'})}
+  if(cn==='StringBuilder')return newRef({k:'sb',s:a.length&&a[0]&&a[0].k==='str'?a[0].s:''});
+  if(cn==='String'){if(!a.length)return newStr('');if(a[0]&&a[0].k==='str')return newStr(a[0].s);if(a[0]&&a[0].k==='arr'&&a[0].et==='char')return newStr(a[0].a.map(x=>chr(x.v)).join(''));throw new CE('no suitable constructor found for String',line)}
+  if(cn==='Random'){checkType('Random',line);return newRef({k:'rnd',g:JRandom(a.length?a[0].v:Date.now())})}
+  const C=CL.get(cn);if(!C)throw new CE(`cannot find symbol\n  symbol:   class ${cn}`,line);
+  const o=newRef({k:'obj',cls:cn,f:new Map()});
+  for(const f of C.fields)if(!f.static)o.f.set(f.name,{t:f.type,v:defv(f.type),fin:f.final});
+  if(!C.ctors.length){if(a.length)throw new CE(`constructor ${cn} in class ${cn} cannot be applied to given types;\n  required: no arguments\n  found:    ${a.map(tyOf).join(',')}`,line);const sv=stack.length;stack.push({label:`new ${cn}()`,cls:cn,mname:'<init>',scopes:[new Map()],self:o,line});try{initFields(C,o)}finally{stack.length=sv}return o}
+  const m=pick(C.ctors,a,cn,cn);if(m.vis==='private'&&frame().cls!==cn)throw new CE(`${cn}(${m.params.map(p=>p.t).join(',')}) has private access in ${cn}`,line);
+  invoke(C,m,o,a);return o}
+ function call(e){
+  const A=()=>e.args.map(ev);
+  if(!e.obj){const C=CL.get(frame().cls);const cands=C.methods.filter(m=>m.name===e.n);const a=A();if(!cands.length)throw new CE(`cannot find symbol\n  symbol:   method ${e.n}(${a.map(tyOf).join(',')})\n  location: class ${C.name}`,line);
+   const m=pick(cands,a,e.n,C.name);if(!m.static){const s=frame().self;if(!s)throw new CE(`non-static method ${sig(m)} cannot be referenced from a static context`,line);return invoke(C,m,s,a)}return invoke(C,m,null,a)}
+  const o=e.obj;
+  if(o.k==='fld'&&o.obj.k==='var'&&o.obj.n==='System'&&staticClassName(o.obj)&&(o.n==='out'||o.n==='err'))return printCall(e.n,A());
+  const cn=staticClassName(o);
+  if(cn){const a=A();if(CL.has(cn)){const C=CL.get(cn);const cands=C.methods.filter(m=>m.name===e.n);if(!cands.length)throw new CE(`cannot find symbol\n  symbol:   method ${e.n}(${a.map(tyOf).join(',')})\n  location: class ${cn}`,line);
+    const m=pick(cands,a,e.n,cn);if(!m.static)throw new CE(`non-static method ${sig(m)} cannot be referenced from a static context`,line);if(m.vis==='private'&&frame().cls!==cn)throw new CE(`${sig(m)} has private access in ${cn}`,line);return invoke(C,m,null,a)}
+   return builtinStatic(cn,e.n,a)}
+  const t=ev(o);const a=A();return callOn(t,e.n,a,e)}
+ function printCall(n,a){
+  if(n==='println'){if(a.length>1)throw new CE('no suitable method found for println',line);if(!a.length){emit('\n');return}const v=a[0];emit((v&&v.k==='arr'&&v.et==='char'?v.a.map(x=>chr(x.v)).join(''):str(v))+'\n');return}
+  if(n==='print'){if(a.length!==1)throw new CE(`no suitable method found for print(${a.map(tyOf).join(',')||'no arguments'})`,line);const v=a[0];emit(v&&v.k==='arr'&&v.et==='char'?v.a.map(x=>chr(x.v)).join(''):str(v));return}
+  if(n==='printf'||n==='format'){if(!a.length||!a[0]||a[0].k!=='str')throw new CE('no suitable method found for printf',line);emit(format(a[0].s,a.slice(1)));return}
+  throw new CE(`cannot find symbol\n  symbol:   method ${n}\n  location: variable out of type PrintStream`,line)}
+ const jcls=v=>v===null?'null':isP(v)?({int:'java.lang.Integer',double:'java.lang.Double',char:'java.lang.Character',boolean:'java.lang.Boolean',long:'java.lang.Long',float:'java.lang.Float',short:'java.lang.Short',byte:'java.lang.Byte'})[v.t]:v.k==='str'?'java.lang.String':tyOf(v);
+ function format(fmt,args){let ai=0;
+  return fmt.replace(/%([-#+ 0,(]*)(\d+)?(\.\d+)?([a-zA-Z%])/g,(m,fl,w,p,c)=>{
+   const pad=s=>{const W=w?+w:0;if(s.length>=W)return s;if(fl.includes('-'))return s+' '.repeat(W-s.length);if(fl.includes('0')&&c!=='s'&&c!=='S'){const sg=s[0]==='-'||s[0]==='+';return(sg?s[0]:'')+'0'.repeat(W-s.length)+(sg?s.slice(1):s)}return' '.repeat(W-s.length)+s};
+   if(c==='n')return'\n';if(c==='%')return pad('%');
+   const lc=c.toLowerCase();if(!'dfsecbxo'.includes(lc))throw thr('UnknownFormatConversionException',`Conversion = '${c}'`);
+   if(ai>=args.length)throw thr('MissingFormatArgumentException',`Format specifier '${m}'`);
+   const v=args[ai++];let s;
+   const grp=x=>x.replace(/\B(?=(\d{3})+(?!\d))/g,',');
+   switch(lc){
+    case'd':case'x':case'o':if(!isP(v)||!['int','long','short','byte'].includes(v.t))throw thr('IllegalFormatConversionException',`${c} != ${jcls(v)}`);
+     if(lc==='d'){s=String(Math.abs(v.v));if(fl.includes(','))s=grp(s);s=(v.v<0?'-':fl.includes('+')?'+':'')+s}else s=(v.t==='long'?v.v:v.v>>>0).toString(lc==='x'?16:8);break;
+    case'f':case'e':{if(!isP(v)||!['double','float'].includes(v.t))throw thr('IllegalFormatConversionException',`${c} != ${jcls(v)}`);const pr=p?+p.slice(1):6;const x=Math.abs(v.v);
+     if(lc==='f'){s=x.toFixed(pr);if(fl.includes(',')){const[ip2,fp]=s.split('.');s=grp(ip2)+(fp!==undefined?'.'+fp:'')}}else{s=x.toExponential(pr).replace(/e([+-])(\d)$/,'e$10$2')}
+     s=(v.v<0?'-':fl.includes('+')?'+':'')+s;break}
+    case's':s=v===null?'null':str(v);if(p)s=s.slice(0,+p.slice(1));break;
+    case'c':if(!isP(v)||!['char','int','short','byte'].includes(v.t))throw thr('IllegalFormatConversionException',`c != ${jcls(v)}`);s=chr(v.v);break;
+    case'b':s=v===null?'false':(isP(v)&&v.t==='boolean')?String(v.v):'true';break}
+   if(c!==lc)s=s.toUpperCase();return pad(s)})}
+ const argN=(a,k,n,cn)=>{if(a.length!==k)throw new CE(`method ${n} in class ${cn} cannot be applied to given types (needs ${k} argument${k===1?'':'s'}, found ${a.length})`,line)};
+ const num=v=>{if(!isP(v)||v.t==='boolean')throw new CE(`incompatible types: ${tyOf(v)} cannot be converted to double`,line);return v.v};
+ const promT=(a,b)=>[a,b].some(x=>x.t==='double')?'double':[a,b].some(x=>x.t==='float')?'float':[a,b].some(x=>x.t==='long')?'long':'int';
+ const S=v=>{if(v===null)throw thr('NullPointerException','');if(v&&v.k==='str')return v.s;if(isP(v)&&v.t==='char')return chr(v.v);throw new CE(`incompatible types: ${tyOf(v)} cannot be converted to String`,line)};
+ const I=v=>{if(!isP(v)||!['int','char','short','byte'].includes(v.t))throw new CE(`incompatible types: ${tyOf(v)} cannot be converted to int`,line);return v.v};
+ function builtinStatic(cn,n,a){
+  const D=v=>({t:'double',v});
+  if(cn==='Math'){
+   const one=['sqrt','cbrt','exp','log','log10','sin','cos','tan','asin','acos','atan','ceil','floor'];
+   if(one.includes(n)){argN(a,1,n,cn);return D(Math[n](num(a[0])))}
+   switch(n){
+    case'abs':{argN(a,1,n,cn);const v=a[0];num(v);const t=['char','byte','short'].includes(v.t)?'int':v.t;return mk(t,Math.abs(v.v))}
+    case'max':case'min':{argN(a,2,n,cn);const t=promT(a[0],a[1]);return numConv(D(Math[n](num(a[0]),num(a[1]))),t)}
+    case'pow':argN(a,2,n,cn);return D(Math.pow(num(a[0]),num(a[1])));
+    case'hypot':case'atan2':argN(a,2,n,cn);return D(Math[n](num(a[0]),num(a[1])));
+    case'toRadians':argN(a,1,n,cn);return D(num(a[0])*Math.PI/180);
+    case'toDegrees':argN(a,1,n,cn);return D(num(a[0])*180/Math.PI);
+    case'signum':argN(a,1,n,cn);return D(Math.sign(num(a[0])));
+    case'rint':{argN(a,1,n,cn);const x=num(a[0]);let r=Math.round(x);if(Math.abs(x%1)===0.5)r=2*Math.round(x/2);return D(r)}
+    case'round':{argN(a,1,n,cn);const x=num(a[0]);const r=Number.isNaN(x)?0:Math.floor(x+0.5);return a[0].t==='float'?mk('int',r):{t:'long',v:r}}
+    case'random':argN(a,0,n,cn);return D(Math.random());
+   }}
+  if(cn==='Integer'||cn==='Long'){
+   const T=cn==='Integer'?'int':'long';
+   switch(n){
+    case'parseInt':case'parseLong':case'valueOf':{if(a[0]&&isP(a[0]))return conv(a[0],T,line,'assign');const s=S(a[0]);const rad=a[1]?I(a[1]):10;const ok=rad===10?/^[+-]?\d+$/.test(s):new RegExp(`^[+-]?[0-9a-z]+$`,'i').test(s)&&!isNaN(parseInt(s,rad));const v=parseInt(s,rad);if(!ok||isNaN(v)||(T==='int'&&(v>2147483647||v<-2147483648)))throw thr('NumberFormatException',`For input string: "${s}"${rad!==10?` under radix ${rad}`:''}`);return{t:T,v}}
+    case'toString':return newStr(a.length>1?a[0].v.toString(I(a[1])):str(a[0]));
+    case'toBinaryString':return newStr((a[0].v>>>0).toString(2));
+    case'toHexString':return newStr((a[0].v>>>0).toString(16));
+    case'toOctalString':return newStr((a[0].v>>>0).toString(8));
+    case'max':case'min':return mk(T,Math[n](num(a[0]),num(a[1])));
+    case'compare':return mk('int',Math.sign(num(a[0])-num(a[1])));
+   }}
+  if(cn==='Double'){switch(n){
+   case'parseDouble':case'valueOf':{if(a[0]&&isP(a[0]))return conv(a[0],'double',line,'assign');const s=S(a[0]).trim();if(!/^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?[dDfF]?$/.test(s)&&!/^[+-]?(Infinity|NaN)$/.test(s))throw thr('NumberFormatException',s===''?'empty String':`For input string: "${s}"`);return D(parseFloat(s))}
+   case'toString':return newStr(str(a[0]));case'isNaN':return B(Number.isNaN(num(a[0])));
+   case'compare':return mk('int',Math.sign(num(a[0])-num(a[1])));case'max':case'min':return D(Math[n](num(a[0]),num(a[1])))}}
+  if(cn==='Boolean'&&n==='parseBoolean')return B(a[0]&&a[0].k==='str'&&a[0].s.toLowerCase()==='true');
+  if(cn==='Character'){argN(a,1,n,cn);const v=a[0];if(!isP(v))throw new CE(`incompatible types: ${tyOf(v)} cannot be converted to char`,line);const c=chr(v.v);
+   switch(n){case'isDigit':return B(/[0-9]/.test(c));case'isLetter':case'isAlphabetic':return B(/\p{L}/u.test(c));case'isLetterOrDigit':return B(/[\p{L}0-9]/u.test(c));
+    case'isUpperCase':return B(/\p{Lu}/u.test(c));case'isLowerCase':return B(/\p{Ll}/u.test(c));case'isWhitespace':return B(/[ \t\n\r\f\v\u001c-\u001f]/.test(c));
+    case'toUpperCase':return mk(v.t==='char'?'char':'int',c.toUpperCase().charCodeAt(0));case'toLowerCase':return mk(v.t==='char'?'char':'int',c.toLowerCase().charCodeAt(0));
+    case'getNumericValue':{const d=parseInt(c,36);return mk('int',isNaN(d)?-1:d)}case'toString':case'valueOf':return n==='toString'?newStr(c):v}}
+  if(cn==='String'){switch(n){case'valueOf':argN(a,1,n,cn);{const v=a[0];return newStr(v&&v.k==='arr'&&v.et==='char'?v.a.map(x=>chr(x.v)).join(''):str(v))}
+   case'format':if(!a[0]||a[0].k!=='str')throw new CE('no suitable method found for format',line);return newStr(format(a[0].s,a.slice(1)));
+   case'join':{const d=S(a[0]);const rest=a.length===2&&a[1]&&a[1].k==='arr'?a[1].a:a.slice(1);return newStr(rest.map(str).join(d))}}}
+  if(cn==='Arrays'){checkType('Arrays',line);const arr=a[0];if(arr===null)throw thr('NullPointerException','');
+   const isArr=x=>x&&x.k==='arr';if(!isArr(arr))throw new CE(`no suitable method found for ${n}(${a.map(tyOf).join(',')})`,line);
+   switch(n){
+    case'toString':return newStr('['+arr.a.map(str).join(', ')+']');
+    case'deepToString':{const d=x=>x&&x.k==='arr'?'['+x.a.map(d).join(', ')+']':str(x);return newStr(d(arr))}
+    case'sort':{const lo=a.length>1?I(a[1]):0,hi=a.length>2?I(a[2]):arr.a.length;const part=arr.a.slice(lo,hi);part.sort((x,y)=>x&&x.k==='str'?cmpStr(x.s,y.s):(x.v<y.v?-1:x.v>y.v?1:0));arr.a.splice(lo,hi-lo,...part);return undefined}
+    case'fill':{if(a.length===2){const v=conv(a[1],arr.et,line,'assign');arr.a=arr.a.map(()=>v)}else{const lo=I(a[1]),hi=I(a[2]);const v=conv(a[3],arr.et,line,'assign');for(let k=lo;k<hi;k++)arr.a[k]=v}return undefined}
+    case'copyOf':case'copyOfRange':{const lo=n==='copyOf'?0:I(a[1]),hi=n==='copyOf'?I(a[1]):I(a[2]);const out=newRef({k:'arr',et:arr.et,a:[]});for(let k=lo;k<hi;k++)out.a.push(k<arr.a.length?arr.a[k]:defv(arr.et));return out}
+    case'equals':{const b=a[1];return B(isArr(b)&&b.a.length===arr.a.length&&arr.a.every((x,k)=>isP(x)?x.v===b.a[k].v:x&&x.k==='str'?b.a[k]&&b.a[k].s===x.s:x===b.a[k]))}
+    case'binarySearch':{const key=a[1];let lo=0,hi=arr.a.length-1;const kv=key.k==='str'?key.s:key.v;while(lo<=hi){const mid=(lo+hi)>>>1;const mv=arr.a[mid].k==='str'?arr.a[mid].s:arr.a[mid].v;const c=typeof mv==='string'?cmpStr(mv,kv):mv-kv;if(c<0)lo=mid+1;else if(c>0)hi=mid-1;else return mk('int',mid)}return mk('int',-(lo+1))}
+   }}
+  if(cn==='System'){switch(n){case'currentTimeMillis':return{t:'long',v:Date.now()};case'nanoTime':return{t:'long',v:Math.round(performance.now()*1e6)};case'exit':throw new Exit();
+   case'arraycopy':{argN(a,5,n,cn);const[src2,sp,dst,dp,len]=a;if(src2===null||dst===null)throw thr('NullPointerException','');const s0=I(sp),d0=I(dp),L=I(len);
+    if(s0<0||d0<0||L<0||s0+L>src2.a.length)throw thr('ArrayIndexOutOfBoundsException',`arraycopy: last source index ${s0+L} out of bounds for ${src2.et}[${src2.a.length}]`);
+    if(d0+L>dst.a.length)throw thr('ArrayIndexOutOfBoundsException',`arraycopy: last destination index ${d0+L} out of bounds for ${dst.et}[${dst.a.length}]`);
+    const tmp=src2.a.slice(s0,s0+L);for(let k=0;k<L;k++)dst.a[d0+k]=tmp[k];return undefined}}}
+  throw new CE(`cannot find symbol\n  symbol:   method ${n}(${a.map(tyOf).join(',')})\n  location: class ${cn}`,line)}
+ function scanTok(){while(ip<inp.length&&/\s/.test(inp[ip]))ip++;if(ip>=inp.length)throw thr('NoSuchElementException','');let q=ip;while(q<inp.length&&!/\s/.test(inp[q]))q++;return[inp.slice(ip,q),q]}
+ function echo(){if(ip<=echoed)return;let end=inp.indexOf('\n',ip-1);if(end<0)end=inp.length;if(end>=echoed){emit(inp.slice(echoed,end)+'\n',true);echoed=end+1}}
+ function callOn(t,n,a,e){
+  if(t===null)throw thr('NullPointerException',`Cannot invoke "${staticType(e.obj)}.${n}()" because "${txt(e.obj)}" is null`);
+  if(isP(t))throw new CE(`${t.t} cannot be dereferenced`,line);
+  const ar=k=>argN(a,k,n,tyOf(t));
+  if(t.k==='str'){const s=t.s;
+   switch(n){
+    case'length':ar(0);return mk('int',s.length);
+    case'charAt':{ar(1);const i2=I(a[0]);if(i2<0||i2>=s.length)throw thr('StringIndexOutOfBoundsException',`Index ${i2} out of bounds for length ${s.length}`);return{t:'char',v:s.charCodeAt(i2)}}
+    case'substring':{const b=I(a[0]),en=a.length>1?I(a[1]):s.length;if(b<0||en>s.length||b>en)throw thr('StringIndexOutOfBoundsException',`begin ${b}, end ${en}, length ${s.length}`);return newStr(s.slice(b,en))}
+    case'indexOf':case'lastIndexOf':{const x=isP(a[0])?chr(a[0].v):S(a[0]);const from=a.length>1?I(a[1]):undefined;return mk('int',n==='indexOf'?s.indexOf(x,from):(from===undefined?s.lastIndexOf(x):s.lastIndexOf(x,from)))}
+    case'toUpperCase':return newStr(s.toUpperCase());case'toLowerCase':return newStr(s.toLowerCase());
+    case'trim':return newStr(s.replace(/^[\x00-\x20]+|[\x00-\x20]+$/g,''));case'strip':return newStr(s.trim());
+    case'isEmpty':return B(!s.length);case'isBlank':return B(!s.trim().length);
+    case'equals':ar(1);return B(a[0]!==null&&a[0].k==='str'&&a[0].s===s);
+    case'equalsIgnoreCase':ar(1);return B(a[0]!==null&&a[0].k==='str'&&a[0].s.toLowerCase()===s.toLowerCase());
+    case'compareTo':ar(1);return mk('int',cmpStr(s,S(a[0])));
+    case'compareToIgnoreCase':ar(1);return mk('int',cmpStr(s.toLowerCase(),S(a[0]).toLowerCase()));
+    case'contains':return B(s.includes(S(a[0])));case'startsWith':return B(s.startsWith(S(a[0])));case'endsWith':return B(s.endsWith(S(a[0])));
+    case'concat':return newStr(s+S(a[0]));
+    case'replace':{const x=isP(a[0])?chr(a[0].v):S(a[0]),y=isP(a[1])?chr(a[1].v):S(a[1]);return newStr(s.split(x).join(y))}
+    case'replaceAll':return newStr(s.replace(new RegExp(S(a[0]),'g'),S(a[1])));
+    case'matches':return B(new RegExp('^(?:'+S(a[0])+')$').test(s));
+    case'split':{let parts=s.split(new RegExp(S(a[0])));while(parts.length>1&&parts[parts.length-1]==='')parts.pop();if(parts.length>1&&parts[0]===''&&s.length&&new RegExp('^(?:'+S(a[0])+')').exec(s)?.[0]==='')parts.shift();return newRef({k:'arr',et:'String',a:parts.map(newStr)})}
+    case'toCharArray':return newRef({k:'arr',et:'char',a:[...s].map(c=>({t:'char',v:c.charCodeAt(0)}))});
+    case'repeat':return newStr(s.repeat(I(a[0])));
+    case'hashCode':{let h=0;for(const c of s)h=wrap32(Math.imul(31,h)+c.charCodeAt(0));return mk('int',h)}
+    case'toString':return t;
+   }
+   throw new CE(`cannot find symbol\n  symbol:   method ${n}(${a.map(tyOf).join(',')})\n  location: class String`,line)}
+  if(t.k==='sb'){
+   switch(n){
+    case'append':ar(1);t.s+=(a[0]&&a[0].k==='arr'&&a[0].et==='char')?a[0].a.map(x=>chr(x.v)).join(''):str(a[0]);return t;
+    case'insert':{const k=I(a[0]);if(k<0||k>t.s.length)throw thr('StringIndexOutOfBoundsException',`offset ${k}, length ${t.s.length}`);t.s=t.s.slice(0,k)+str(a[1])+t.s.slice(k);return t}
+    case'reverse':t.s=[...t.s].reverse().join('');return t;
+    case'toString':return newStr(t.s);case'length':return mk('int',t.s.length);
+    case'charAt':{const k=I(a[0]);if(k<0||k>=t.s.length)throw thr('StringIndexOutOfBoundsException',`index ${k},length ${t.s.length}`);return{t:'char',v:t.s.charCodeAt(k)}}
+    case'setCharAt':{const k=I(a[0]);t.s=t.s.slice(0,k)+chr(a[1].v)+t.s.slice(k+1);return undefined}
+    case'deleteCharAt':{const k=I(a[0]);if(k<0||k>=t.s.length)throw thr('StringIndexOutOfBoundsException',`index ${k},length ${t.s.length}`);t.s=t.s.slice(0,k)+t.s.slice(k+1);return t}
+    case'delete':{const b=I(a[0]),en=Math.min(I(a[1]),t.s.length);t.s=t.s.slice(0,b)+t.s.slice(en);return t}
+    case'replace':{const b=I(a[0]),en=Math.min(I(a[1]),t.s.length);t.s=t.s.slice(0,b)+S(a[2])+t.s.slice(en);return t}
+    case'indexOf':return mk('int',t.s.indexOf(S(a[0])));case'capacity':return mk('int',Math.max(16,t.s.length+16));
+   }
+   throw new CE(`cannot find symbol\n  symbol:   method ${n}\n  location: class StringBuilder`,line)}
+  if(t.k==='scan'){
+   switch(n){
+    case'nextInt':case'nextLong':case'nextShort':case'nextByte':{const[tok,q]=scanTok();if(!/^[+-]?\d+$/.test(tok))throw thr('InputMismatchException',`For input string: "${tok}"`);ip=q;echo();return mk(n==='nextLong'?'long':'int',parseInt(tok,10))}
+    case'nextDouble':case'nextFloat':{const[tok,q]=scanTok();if(!/^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(tok))throw thr('InputMismatchException',`For input string: "${tok}"`);ip=q;echo();return{t:'double',v:parseFloat(tok)}}
+    case'nextBoolean':{const[tok,q]=scanTok();if(!/^(true|false)$/i.test(tok))throw thr('InputMismatchException',`For input string: "${tok}"`);ip=q;echo();return B(tok.toLowerCase()==='true')}
+    case'next':{const[tok,q]=scanTok();ip=q;echo();return newStr(tok)}
+    case'nextLine':{if(ip>=inp.length)throw thr('NoSuchElementException','No line found');const q=inp.indexOf('\n',ip);let ln;if(q<0){ln=inp.slice(ip);ip=inp.length}else{ln=inp.slice(ip,q);ip=q+1}echo();return newStr(ln)}
+    case'hasNext':case'hasNextInt':case'hasNextDouble':{let q=ip;while(q<inp.length&&/\s/.test(inp[q]))q++;if(q>=inp.length)return B(false);let r=q;while(r<inp.length&&!/\s/.test(inp[r]))r++;const tok=inp.slice(q,r);return B(n==='hasNext'||(n==='hasNextInt'?/^[+-]?\d+$/.test(tok):/^[+-]?(\d+\.?\d*|\.\d+)$/.test(tok)))}
+    case'close':return undefined;
+   }
+   throw new CE(`cannot find symbol\n  symbol:   method ${n}\n  location: class Scanner`,line)}
+  if(t.k==='rnd'){switch(n){case'nextInt':if(a.length&&I(a[0])<=0)throw thr('IllegalArgumentException','bound must be positive');return mk('int',t.g.nextInt(a.length?I(a[0]):undefined));case'nextDouble':return{t:'double',v:t.g.nextDouble()};case'nextBoolean':return B(t.g.nextBoolean())}
+   throw new CE(`cannot find symbol\n  symbol:   method ${n}\n  location: class Random`,line)}
+  if(t.k==='arr'){if(n==='length')throw new CE('cannot find symbol\n  symbol:   method length()\n  (arrays use the field length, with no parentheses)',line);if(n==='clone'){const c=newRef({k:'arr',et:t.et,a:t.a.slice()});return c}if(n==='equals')return B(t===a[0]);throw new CE(`cannot find symbol\n  symbol:   method ${n}`,line)}
+  if(t.k==='obj'){const C=CL.get(t.cls);const cands=C.methods.filter(m=>m.name===n);
+   if(!cands.length){if(n==='toString'&&!a.length)return newStr(t.cls+'@'+hash(t.id));if(n==='equals'&&a.length===1)return B(t===a[0]);if(n==='hashCode'&&!a.length)return mk('int',parseInt(hash(t.id),16)|0);
+    throw new CE(`cannot find symbol\n  symbol:   method ${n}(${a.map(tyOf).join(',')})\n  location: class ${t.cls}`,line)}
+   const m=pick(cands,a,n,t.cls);if(m.vis==='private'&&frame().cls!==t.cls)throw new CE(`${sig(m)} has private access in ${t.cls}`,line);
+   return invoke(C,m,m.static?null:t,a)}
+  throw new CE(`cannot find symbol\n  symbol: method ${n}`,line)}
+
+ function exec(s){
+  tick();
+  switch(s.k){
+  case'block':{const f=frame();f.scopes.push(new Map());try{for(const x of s.b)exec(x)}finally{f.scopes.pop()}return}
+  case'empty':return;
+  case'decl':{setLine(s.line);snap();
+   for(const d of s.ds){let t=d.t;checkType(t,s.line);
+    const f=frame();if(f.scopes.some(sc=>sc.has(d.n)))throw new CE(`variable ${d.n} is already defined in method ${f.mname}`,s.line);
+    let v;if(d.init){if(d.init.k==='arrlit'&&!d.init.t)v=arrLit(d.init,t);else v=ev(d.init);
+     if(t==='var'){if(v===null)throw new CE(`cannot infer type for local variable ${d.n}\n  (variable initializer is 'null')`,s.line);t=tyOf(v)}
+     v=conv(v,t,s.line,'assign')}else if(t==='var')throw new CE(`cannot infer type for local variable ${d.n}`,s.line);
+    f.scopes[f.scopes.length-1].set(d.n,{t,v,fin:s.fin})}
+   return}
+  case'expr':setLine(s.line);snap();ev(s.e);return;
+  case'if':setLine(s.line);snap();if(cond(ev(s.c)))exec(s.th);else if(s.el)exec(s.el);return;
+  case'while':for(;;){setLine(s.line);snap();tick();if(!cond(ev(s.c)))break;try{exec(s.body)}catch(x){if(x===BRK)break;if(x===CNT)continue;throw x}}return;
+  case'do':for(;;){try{exec(s.body)}catch(x){if(x===BRK)break;if(x!==CNT)throw x}setLine(s.wline);snap();tick();if(!cond(ev(s.c)))break}return;
+  case'for':{const f=frame();f.scopes.push(new Map());
+   try{for(const x of s.init){if(x.k==='decl')exec(x);else{setLine(s.line);snap();ev(x.e)}}
+    for(;;){setLine(s.line);snap();tick();if(s.c&&!cond(ev(s.c)))break;try{exec(s.body)}catch(x){if(x===BRK)break;if(x!==CNT)throw x}setLine(s.line);for(const u of s.upd)ev(u)}}
+   finally{f.scopes.pop()}return}
+  case'foreach':{setLine(s.line);snap();const it=ev(s.it);if(it===null)throw thr('NullPointerException',`Cannot read the array length because "${txt(s.it)}" is null`);if(!it||it.k!=='arr')throw new CE(`for-each not applicable to expression type\n  required: array\n  found:    ${tyOf(it)}`,s.line);
+   const f=frame();const t=s.t==='var'?it.et:s.t;checkType(t,s.line);
+   for(let q=0;q<it.a.length;q++){f.scopes.push(new Map());let stop=false;
+    try{setLine(s.line);tick();f.scopes[f.scopes.length-1].set(s.n,{t,v:conv(it.a[q],t,s.line,'assign')});snap();try{exec(s.body)}catch(x){if(x===BRK)stop=true;else if(x!==CNT)throw x}}finally{f.scopes.pop()}
+    if(stop)break}
+   return}
+  case'switch':{setLine(s.line);snap();const v=ev(s.e);let k=-1;
+   for(let q=0;q<s.cases.length&&k<0;q++){const c=s.cases[q];if(c.labs&&c.labs.some(l=>{const lv=ev(l);return isP(v)?(isP(lv)&&lv.v===v.v):(v&&lv&&v.k==='str'&&lv.k==='str'&&v.s===lv.s)}))k=q}
+   if(k<0)k=s.cases.findIndex(c=>!c.labs);if(k<0)return;
+   const f=frame();f.scopes.push(new Map());
+   try{for(let q=k;q<s.cases.length;q++)for(const x of s.cases[q].body)exec(x)}catch(x){if(x!==BRK)throw x}finally{f.scopes.pop()}
+   return}
+  case'break':if(!s.silent){setLine(s.line);snap()}throw BRK;
+  case'continue':setLine(s.line);snap();throw CNT;
+  case'return':{setLine(s.line);snap();const v=s.e?ev(s.e):undefined;throw new Ret(v,s.line)}
+  }
+  throw new CE('unsupported statement',s.line)}
+
+ // static checks on declared types
+ try{for(const C of P.classes){for(const f of C.fields)checkType(f.type,f.line);for(const m of[...C.methods,...C.ctors]){if(m.ret)checkType(m.ret,m.line);for(const p of m.params)checkType(p.t,m.line);if(!m.body)throw new CE('missing method body, or declare abstract',m.line)}}
+  if(opt.file){if(!/\.java$/.test(opt.file))throw new CE(`Class names, '${opt.file}', are only accepted if annotation processing is explicitly requested — the file name must end in .java`,1);const base=opt.file.replace(/\.java$/,'');const pub=P.classes.find(c=>c.pub);if(pub&&pub.name!==base)throw new CE(`class ${pub.name} is public, should be declared in a file named ${pub.name}.java`,pub.line)}}
+ catch(e){if(e instanceof CE){R.err=e;return R}throw e}
+ const mains=P.classes.filter(c=>c.methods.some(m=>m.name==='main'&&m.static&&m.ret==='void'&&m.params.length===1&&m.params[0].t==='String[]'));
+ const mainC=mains.find(c=>c.pub)||mains[0];
+ if(!mainC){const pc=pubC;R.err=new RX(null,`Error: Main method not found in class ${pc?pc.name:'Main'}, please define the main method as:\n   public static void main(String[] args)`,0);return R}
+ const mainM={...mainC.methods.find(m=>m.name==='main'&&m.static&&m.params.length===1&&m.params[0].t==='String[]'),isMain:true};
+ try{
+  const sv=recording;recording=false;
+  for(const C of P.classes){statics.set(C.name,new Map());for(const f of C.fields)if(f.static)statics.get(C.name).set(f.name,{t:f.type,v:defv(f.type),fin:f.final})}
+  for(const C of P.classes){stack.push({label:C.name+' (static)',cls:C.name,mname:'<clinit>',scopes:[new Map()],self:null,line:C.line});
+   try{for(const f of C.fields)if(f.static&&f.init){setLine(f.line);const c=statics.get(C.name).get(f.name);c.v=f.init.k==='arrlit'&&!f.init.t?arrLit(f.init,f.type):conv(ev(f.init),f.type,f.line,'assign');c.done=true}}finally{stack.pop()}}
+  recording=sv;R.cov={};
+  invoke(mainC,mainM,null,[{k:'arr',et:'String',a:[],id:0}]);
+ }catch(x){
+  if(x instanceof Exit){}
+  else if(x instanceof CE){R.err=x;R.out=[];R.outLen=0;R.snaps=[]}
+  else if(x instanceof RX)R.err=x;
+  else if(x instanceof RangeError){R.err=new RX('StackOverflowError','',line,[])}
+  else throw x}
+ R.steps=steps;return R}
+
+function exText(err){if(!err)return'';if(err.ex===null||err.ex===undefined)return err.message;if(err.ex==='ExecutionLimit')return err.message;
+ const pkg=UTILEX.has(err.ex)?'java.util.':'java.lang.';return`Exception in thread "main" ${pkg}${err.ex}${err.message?': '+err.message:''}\n${err.trace.map(t=>'\tat '+t).join('\n')}`}
+return{run,lex,parse,fmtD,show,exText,PRIM}})();
+/*J-END*/
+
+/*EX-START*/
+const R_=s=>s.replace(/^\n/,'');
+const EX={
+intro:{
+'Welcome':{c:R_(String.raw`
+public class Welcome {
+  public static void main(String[] args) {
+    // Display a message on the console
+    System.out.println("Welcome to Java!");
+  }
+}`),d:'The smallest complete Java program: one class, one main method, one statement.'},
+'Three messages':{c:R_(String.raw`
+public class Welcome {
+  public static void main(String[] args) {
+    System.out.println("Programming is fun!");
+    System.out.println("Fundamentals First");
+    System.out.println("Problem Driven");
+  }
+}`),d:'Statements in main run in order, top to bottom.'},
+'Compute an expression':{c:R_(String.raw`
+public class Welcome {
+  public static void main(String[] args) {
+    System.out.print("(10.5 + 2 * 3) / (45 - 3.5) = ");
+    System.out.println((10.5 + 2 * 3) / (45 - 3.5));
+  }
+}`),d:'print leaves the cursor on the same line; println moves to the next line.'},
+'Syntax error':{c:R_(String.raw`
+public class Welcome {
+  public static void main(String[] args) {
+    System.out.println("Welcome to Java!")
+  }
+}`),d:'A syntax error: javac refuses to produce bytecode. Add the missing semicolon to fix it.'},
+'Wrong file name':{c:R_(String.raw`
+public class Welcome {
+  public static void main(String[] args) {
+    System.out.println("Welcome to Java!");
+  }
+}`),file:'Hello.java',d:'A public class must live in a file with exactly the same name. Change the file name to Welcome.java.'},
+'Runtime error':{c:R_(String.raw`
+public class Welcome {
+  public static void main(String[] args) {
+    System.out.println("About to divide...");
+    System.out.println(1 / 0);
+    System.out.println("This line never runs.");
+  }
+}`),d:'It compiles, then the JVM stops it while running: a runtime error.'},
+'Logic error':{c:R_(String.raw`
+public class Welcome {
+  public static void main(String[] args) {
+    System.out.println("Celsius 35 is Fahrenheit degree");
+    System.out.println((9 / 5) * 35 + 32);
+  }
+}`),d:'A logic error: no message at all, just a wrong answer (67 instead of 95). Change 9 / 5 to 9.0 / 5.'}},
+elem:{
+'Area with input':{c:R_(String.raw`
+import java.util.Scanner;
+
+public class ComputeArea {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter a number for radius: ");
+    double radius = input.nextDouble();
+
+    final double PI = 3.14159;
+    double area = radius * radius * PI;
+
+    System.out.println("The area for the circle of radius " + radius + " is " + area);
+  }
+}`),i:'23',tries:['23','2.5','5'],d:'Reads a double from the keyboard. Try typing a word instead of a number.'},
+'Display time':{c:R_(String.raw`
+import java.util.Scanner;
+
+public class DisplayTime {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter an integer for seconds: ");
+    int seconds = input.nextInt();
+
+    int minutes = seconds / 60;
+    int remainingSeconds = seconds % 60;
+    System.out.println(seconds + " seconds is " + minutes +
+      " minutes and " + remainingSeconds + " seconds");
+  }
+}`),i:'500',tries:['500','59','3661'],d:'Integer division and remainder split seconds into minutes.'},
+'Sales tax':{c:R_(String.raw`
+import java.util.Scanner;
+
+public class SalesTax {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter purchase amount: ");
+    double purchaseAmount = input.nextDouble();
+
+    double tax = purchaseAmount * 0.06;
+    System.out.println("Sales tax is $" + (int) (tax * 100) / 100.0);
+  }
+}`),i:'197.55',tries:['197.55','10','3.99'],d:'Casting to int drops the fraction, keeping two decimal places.'},
+'Surprises':{c:R_(String.raw`
+public class Surprises {
+  public static void main(String[] args) {
+    int big = 2147483647;
+    System.out.println(big + 1);
+    System.out.println(1.0 - 0.1 - 0.1 - 0.1 - 0.1 - 0.1);
+    System.out.println(5 / 2);
+    System.out.println(5 / 2.0);
+    System.out.println(-7 % 3);
+    int x = 5;
+    x += 2.5;
+    System.out.println(x);
+  }
+}`),d:'Overflow, round-off, integer division, the sign of %, and the hidden cast in +=.'},
+'Lossy conversion':{c:R_(String.raw`
+public class Lossy {
+  public static void main(String[] args) {
+    double price = 9.99;
+    int dollars = price;
+    System.out.println(dollars);
+  }
+}`),d:'Narrowing a double to an int needs an explicit cast: write (int) price.'}},
+sel:{
+'Leap year':{c:R_(String.raw`
+import java.util.Scanner;
+
+public class LeapYear {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter a year: ");
+    int year = input.nextInt();
+
+    boolean isLeapYear =
+      (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+
+    if (isLeapYear) {
+      System.out.println(year + " is a leap year");
+    } else {
+      System.out.println(year + " is not a leap year");
+    }
+  }
+}`),i:'2024',tries:['2024','1900','2000','2026']},
+'Letter grade':{c:R_(String.raw`
+import java.util.Scanner;
+
+public class LetterGrade {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter a score: ");
+    double score = input.nextDouble();
+
+    char grade;
+    if (score >= 90.0)
+      grade = 'A';
+    else if (score >= 80.0)
+      grade = 'B';
+    else if (score >= 70.0)
+      grade = 'C';
+    else if (score >= 60.0)
+      grade = 'D';
+    else
+      grade = 'F';
+
+    System.out.println("Your grade is " + grade);
+  }
+}`),i:'85',tries:['95','85','72','40']},
+'BMI':{c:R_(String.raw`
+import java.util.Scanner;
+
+public class ComputeBMI {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter weight in pounds: ");
+    double weight = input.nextDouble();
+    System.out.print("Enter height in inches: ");
+    double height = input.nextDouble();
+
+    final double KILOGRAMS_PER_POUND = 0.45359237;
+    final double METERS_PER_INCH = 0.0254;
+
+    double weightInKilograms = weight * KILOGRAMS_PER_POUND;
+    double heightInMeters = height * METERS_PER_INCH;
+    double bmi = weightInKilograms / (heightInMeters * heightInMeters);
+
+    System.out.printf("BMI is %.2f%n", bmi);
+    if (bmi < 18.5)
+      System.out.println("Underweight");
+    else if (bmi < 25)
+      System.out.println("Normal");
+    else if (bmi < 30)
+      System.out.println("Overweight");
+    else
+      System.out.println("Obese");
+  }
+}`),i:'146\n70',tries:['146\n70','120\n72','190\n68','250\n66']},
+'Chinese zodiac':{c:R_(String.raw`
+import java.util.Scanner;
+
+public class ChineseZodiac {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter a year: ");
+    int year = input.nextInt();
+
+    switch (year % 12) {
+      case 0: System.out.println("monkey"); break;
+      case 1: System.out.println("rooster"); break;
+      case 2: System.out.println("dog"); break;
+      case 3: System.out.println("pig"); break;
+      case 4: System.out.println("rat"); break;
+      case 5: System.out.println("ox"); break;
+      case 6: System.out.println("tiger"); break;
+      case 7: System.out.println("rabbit"); break;
+      case 8: System.out.println("dragon"); break;
+      case 9: System.out.println("snake"); break;
+      case 10: System.out.println("horse"); break;
+      case 11: System.out.println("sheep");
+    }
+  }
+}`),i:'2026',tries:['2026','2024','2000']},
+'Missing break':{c:R_(String.raw`
+public class FallThrough {
+  public static void main(String[] args) {
+    int day = 3;
+    switch (day) {
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5: System.out.println("Weekday");  // no break here!
+      case 0:
+      case 6: System.out.println("Weekend");
+    }
+  }
+}`),d:'Without break, execution falls through into the next case. Add break; after "Weekday".'},
+'Stray semicolon':{c:R_(String.raw`
+public class StraySemicolon {
+  public static void main(String[] args) {
+    double radius = -5;
+    if (radius >= 0);
+    {
+      double area = radius * radius * 3.14159;
+      System.out.println("The area is " + area);
+    }
+  }
+}`),d:'The ; ends the if statement, so the block below always runs. Delete it and run again.'}},
+str:{
+'printf':{c:R_(String.raw`
+public class FormatDemo {
+  public static void main(String[] args) {
+    double amount = 12618.98;
+    double interestRate = 0.0013;
+    double interest = amount * interestRate;
+    System.out.println("Interest is $" + interest);
+    System.out.printf("Interest is $%4.2f%n", interest);
+
+    System.out.printf("%-10s%-8s%8s%n", "Item", "Count", "Price");
+    System.out.printf("%-10s%-8d%8.2f%n", "Pen", 12, 1.5);
+    System.out.printf("%-10s%-8d%8.2f%n", "Notebook", 3, 4.25);
+  }
+}`),d:'Width and precision line up columns. Try %d with a double to see the exception.'},
+'== vs equals':{c:R_(String.raw`
+public class CompareStrings {
+  public static void main(String[] args) {
+    String s1 = "Java";
+    String s2 = "Java";
+    String s3 = new String("Java");
+    System.out.println(s1 == s2);
+    System.out.println(s1 == s3);
+    System.out.println(s1.equals(s3));
+    System.out.println("Apple".compareTo("Banana"));
+    System.out.println("abc".compareTo("abd"));
+    System.out.println("Hi".equalsIgnoreCase("hI"));
+  }
+}`),d:'== compares references; equals compares characters. compareTo returns the difference of the first unequal characters.'},
+'Hex digit':{c:R_(String.raw`
+import java.util.Scanner;
+
+public class HexDigit2Dec {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter a hex digit: ");
+    String hexString = input.nextLine();
+
+    if (hexString.length() != 1) {
+      System.out.println("You must enter exactly one character");
+      System.exit(1);
+    }
+
+    char ch = Character.toUpperCase(hexString.charAt(0));
+    if ('A' <= ch && ch <= 'F') {
+      int value = ch - 'A' + 10;
+      System.out.println("The decimal value for hex digit " + ch + " is " + value);
+    } else if (Character.isDigit(ch)) {
+      System.out.println("The decimal value for hex digit " + ch + " is " + ch);
+    } else {
+      System.out.println(ch + " is an invalid input");
+    }
+  }
+}`),i:'b',tries:['b','7','G','AB']},
+'Math methods':{c:R_(String.raw`
+public class MathDemo {
+  public static void main(String[] args) {
+    System.out.println(Math.pow(2, 10));
+    System.out.println(Math.sqrt(2));
+    System.out.println(Math.ceil(-2.1) + " " + Math.floor(-2.1));
+    System.out.println(Math.round(2.5) + " " + Math.round(-2.5));
+    System.out.println(Math.rint(2.5) + " " + Math.rint(3.5));
+    System.out.println(Math.max(3, 7.5) + " " + Math.abs(-4));
+    int lottery = (int) (Math.random() * 100);
+    System.out.println("Random number 0-99: " + lottery);
+  }
+}`),d:'Run it twice: only the random line changes. round goes half up; rint goes to the even neighbour.'},
+'Characters':{c:R_(String.raw`
+public class CharCodes {
+  public static void main(String[] args) {
+    char ch = 'a';
+    System.out.println((int) ch);
+    System.out.println((char) 66);
+    System.out.println(ch + 1);
+    System.out.println((char) (ch + 1));
+    char digit = '7';
+    System.out.println(digit - '0');
+    System.out.println("Tab:\tquote: \"hi\"  backslash: \\");
+    System.out.println('A' + 'B');
+    System.out.println("" + 'A' + 'B');
+  }
+}`),d:'A char is a number in disguise: arithmetic on chars gives ints until you cast back.'}},
+loops:{
+'Sum with for':{c:R_(String.raw`
+public class SumLoop {
+  public static void main(String[] args) {
+    int sum = 0;
+    for (int i = 1; i <= 5; i++) {
+      sum += i;
+    }
+    System.out.println("Sum is " + sum);
+  }
+}`)},
+'Sentinel value':{c:R_(String.raw`
+import java.util.Scanner;
+
+public class SentinelValue {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter an integer (the input ends if it is 0): ");
+    int data = input.nextInt();
+
+    int sum = 0;
+    while (data != 0) {
+      sum += data;
+      System.out.print("Enter an integer (the input ends if it is 0): ");
+      data = input.nextInt();
+    }
+    System.out.println("The sum is " + sum);
+  }
+}`),i:'2\n3\n4\n0',tries:['2\n3\n4\n0','10\n0','0'],d:'The loop reads until it sees the sentinel 0.'},
+'GCD':{c:R_(String.raw`
+public class GreatestCommonDivisor {
+  public static void main(String[] args) {
+    int n1 = 24;
+    int n2 = 36;
+    int gcd = 1;
+    int k = 2;
+    while (k <= n1 && k <= n2) {
+      if (n1 % k == 0 && n2 % k == 0)
+        gcd = k;
+      k++;
+    }
+    System.out.println("The GCD of " + n1 + " and " + n2 + " is " + gcd);
+  }
+}`)},
+'do-while':{c:R_(String.raw`
+public class ReverseDigits {
+  public static void main(String[] args) {
+    int number = 4728;
+    int reversed = 0;
+    do {
+      int digit = number % 10;
+      reversed = reversed * 10 + digit;
+      number = number / 10;
+    } while (number > 0);
+    System.out.println("Reversed: " + reversed);
+  }
+}`),d:'The body runs before the condition is checked, so it always runs at least once.'},
+'Nested loops':{c:R_(String.raw`
+public class MultiplicationTable {
+  public static void main(String[] args) {
+    for (int i = 1; i <= 4; i++) {
+      for (int j = 1; j <= 4; j++) {
+        System.out.printf("%4d", i * j);
+      }
+      System.out.println();
+    }
+  }
+}`),d:'The inner loop runs all the way through for every pass of the outer loop.'},
+'break & continue':{c:R_(String.raw`
+public class TestBreakContinue {
+  public static void main(String[] args) {
+    int sum = 0;
+    int number = 0;
+    while (number < 20) {
+      number++;
+      if (number % 3 == 0)
+        continue;
+      sum += number;
+      if (sum >= 40)
+        break;
+    }
+    System.out.println("number is " + number + ", sum is " + sum);
+  }
+}`),d:'continue skips multiples of 3; break leaves the loop once sum reaches 40.'},
+'double counter':{c:R_(String.raw`
+public class FloatCounter {
+  public static void main(String[] args) {
+    double sum = 0;
+    for (double x = 0.1; x <= 1.0; x += 0.1) {
+      sum += x;
+    }
+    System.out.println("Sum is " + sum);
+  }
+}`),d:'Watch x in the trace: 0.1 cannot be stored exactly, so errors build up. Use an int counter instead.'}},
+methods:{
+'Max':{c:R_(String.raw`
+public class TestMax {
+  public static void main(String[] args) {
+    int i = 5;
+    int j = 2;
+    int k = max(i, j);
+    System.out.println("The maximum of " + i + " and " + j + " is " + k);
+  }
+
+  public static int max(int num1, int num2) {
+    int result;
+    if (num1 > num2)
+      result = num1;
+    else
+      result = num2;
+    return result;
+  }
+}`)},
+'Pass by value':{c:R_(String.raw`
+public class TestPassByValue {
+  public static void main(String[] args) {
+    int num1 = 1;
+    int num2 = 2;
+    System.out.println("Before swap: num1 = " + num1 + ", num2 = " + num2);
+    swap(num1, num2);
+    System.out.println("After swap:  num1 = " + num1 + ", num2 = " + num2);
+  }
+
+  public static void swap(int n1, int n2) {
+    int temp = n1;
+    n1 = n2;
+    n2 = temp;
+    System.out.println("  Inside swap: n1 = " + n1 + ", n2 = " + n2);
+  }
+}`),d:'swap gets copies. Its own frame changes; main’s variables do not.'},
+'Overloading':{c:R_(String.raw`
+public class TestMethodOverloading {
+  public static void main(String[] args) {
+    System.out.println("max(3, 4) = " + max(3, 4));
+    System.out.println("max(3.0, 5.4) = " + max(3.0, 5.4));
+    System.out.println("max(3, 5.4) = " + max(3, 5.4));
+    System.out.println("max(3.0, 5.4, 10.14) = " + max(3.0, 5.4, 10.14));
+  }
+
+  public static int max(int num1, int num2) {
+    return (num1 > num2) ? num1 : num2;
+  }
+
+  public static double max(double num1, double num2) {
+    return (num1 > num2) ? num1 : num2;
+  }
+
+  public static double max(double num1, double num2, double num3) {
+    return max(max(num1, num2), num3);
+  }
+}`),d:'The frame label shows which max the compiler chose for each call.'},
+'Prime numbers':{c:R_(String.raw`
+public class PrimeNumberMethod {
+  public static void main(String[] args) {
+    System.out.println("The first 8 prime numbers are");
+    printPrimeNumbers(8);
+  }
+
+  public static void printPrimeNumbers(int numberOfPrimes) {
+    int count = 0;
+    int number = 2;
+    while (count < numberOfPrimes) {
+      if (isPrime(number)) {
+        count++;
+        System.out.print(number + " ");
+      }
+      number++;
+    }
+    System.out.println();
+  }
+
+  public static boolean isPrime(int number) {
+    for (int divisor = 2; divisor <= number / 2; divisor++) {
+      if (number % divisor == 0)
+        return false;
+    }
+    return true;
+  }
+}`),d:'Three frames deep: main calls printPrimeNumbers, which calls isPrime.'},
+'Recursion':{c:R_(String.raw`
+public class Factorial {
+  public static void main(String[] args) {
+    int n = 4;
+    System.out.println(n + "! = " + factorial(n));
+  }
+
+  public static long factorial(int n) {
+    if (n == 0)
+      return 1;
+    else
+      return n * factorial(n - 1);
+  }
+}`),d:'Each call gets its own n. Watch the stack grow to five frames, then unwind.'},
+'Scope error':{c:R_(String.raw`
+public class ScopeError {
+  public static void main(String[] args) {
+    for (int i = 1; i <= 3; i++) {
+      int square = i * i;
+      System.out.println(square);
+    }
+    System.out.println("Last square: " + square);
+  }
+}`),d:'square exists only inside the loop’s block. Declare it before the loop to fix it.'}},
+arr1:{
+'Linear search':{c:R_(String.raw`
+public class LinearSearch {
+  public static void main(String[] args) {
+    int[] list = {4, 1, 3, 2, 5, -3, 6, 2};
+    int key = 5;
+    int index = linearSearch(list, key);
+    System.out.println("Found " + key + " at index " + index);
+  }
+
+  public static int linearSearch(int[] list, int key) {
+    for (int i = 0; i < list.length; i++) {
+      if (key == list[i])
+        return i;
+    }
+    return -1;
+  }
+}`)},
+'Binary search':{c:R_(String.raw`
+public class BinarySearch {
+  public static void main(String[] args) {
+    int[] list = {2, 4, 7, 10, 11, 45, 50, 59, 60, 66, 69, 70, 79};
+    int key = 11;
+    int index = binarySearch(list, key);
+    System.out.println("Index of " + key + " is " + index);
+  }
+
+  public static int binarySearch(int[] list, int key) {
+    int low = 0;
+    int high = list.length - 1;
+    while (high >= low) {
+      int mid = (low + high) / 2;
+      if (key < list[mid])
+        high = mid - 1;
+      else if (key == list[mid])
+        return mid;
+      else
+        low = mid + 1;
+    }
+    return -low - 1;
+  }
+}`),d:'Each comparison halves the range between low and high.'},
+'Selection sort':{c:R_(String.raw`
+public class SelectionSort {
+  public static void main(String[] args) {
+    double[] list = {1, 9, 4.5, 6.6, 5.7, -4.5};
+    selectionSort(list);
+    for (double e : list)
+      System.out.print(e + " ");
+    System.out.println();
+  }
+
+  public static void selectionSort(double[] list) {
+    for (int i = 0; i < list.length - 1; i++) {
+      double currentMin = list[i];
+      int currentMinIndex = i;
+      for (int j = i + 1; j < list.length; j++) {
+        if (currentMin > list[j]) {
+          currentMin = list[j];
+          currentMinIndex = j;
+        }
+      }
+      if (currentMinIndex != i) {
+        list[currentMinIndex] = list[i];
+        list[i] = currentMin;
+      }
+    }
+  }
+}`),d:'main and selectionSort hold two references to the same array, so the sort is visible in main.'},
+'Copying arrays':{c:R_(String.raw`
+import java.util.Arrays;
+
+public class CopyArray {
+  public static void main(String[] args) {
+    int[] list1 = {1, 2, 3};
+    int[] list2 = list1;          // copies the reference
+    list2[0] = 99;
+    System.out.println("list1[0] is " + list1[0]);
+
+    int[] list3 = new int[list1.length];
+    for (int i = 0; i < list1.length; i++)
+      list3[i] = list1[i];        // copies the values
+    list3[1] = -1;
+    System.out.println("list1[1] is " + list1[1]);
+    System.out.println(Arrays.toString(list3));
+  }
+}`),d:'Assignment copies a reference, not the array.'},
+'Reverse':{c:R_(String.raw`
+import java.util.Arrays;
+
+public class ReverseArray {
+  public static void main(String[] args) {
+    int[] list = {1, 2, 3, 4, 5, 6};
+    int[] result = reverse(list);
+    System.out.println(Arrays.toString(result));
+  }
+
+  public static int[] reverse(int[] list) {
+    int[] result = new int[list.length];
+    for (int i = 0, j = result.length - 1; i < list.length; i++, j--) {
+      result[j] = list[i];
+    }
+    return result;
+  }
+}`),d:'A method can create and return a new array.'},
+'Off by one':{c:R_(String.raw`
+public class OffByOne {
+  public static void main(String[] args) {
+    int[] scores = new int[5];
+    for (int i = 0; i <= scores.length; i++) {
+      scores[i] = i * 10;
+    }
+    System.out.println("Done");
+  }
+}`),d:'Valid indexes run from 0 to length - 1. Change <= to <.'}},
+arr2:{
+'Sum columns':{c:R_(String.raw`
+public class SumColumns {
+  public static void main(String[] args) {
+    int[][] matrix = {
+      {1, 2, 3},
+      {4, 5, 6},
+      {7, 8, 9},
+      {10, 11, 12}
+    };
+    for (int col = 0; col < matrix[0].length; col++) {
+      int total = 0;
+      for (int row = 0; row < matrix.length; row++)
+        total += matrix[row][col];
+      System.out.println("Sum for column " + col + " is " + total);
+    }
+  }
+}`),d:'The outer loop picks a column; the inner loop walks down its rows.'},
+'Grade exam':{c:R_(String.raw`
+public class GradeExam {
+  public static void main(String[] args) {
+    char[][] answers = {
+      {'A', 'B', 'A', 'C', 'C'},
+      {'D', 'B', 'A', 'B', 'C'},
+      {'E', 'D', 'D', 'A', 'C'},
+      {'C', 'B', 'A', 'E', 'D'}};
+    char[] keys = {'D', 'B', 'D', 'C', 'C'};
+
+    for (int i = 0; i < answers.length; i++) {
+      int correctCount = 0;
+      for (int j = 0; j < answers[i].length; j++) {
+        if (answers[i][j] == keys[j])
+          correctCount++;
+      }
+      System.out.println("Student " + i + "'s correct count is " + correctCount);
+    }
+  }
+}`),d:'Each row is one student; each column is one question.'},
+'Largest row':{c:R_(String.raw`
+public class LargestRow {
+  public static void main(String[] args) {
+    int[][] m = {{3, 8, 1}, {9, 2, 7}, {4, 4, 4}};
+    int maxRow = 0;
+    int maxSum = 0;
+    for (int i = 0; i < m.length; i++) {
+      int sum = 0;
+      for (int j = 0; j < m[i].length; j++)
+        sum += m[i][j];
+      if (i == 0 || sum > maxSum) {
+        maxSum = sum;
+        maxRow = i;
+      }
+    }
+    System.out.println("Row " + maxRow + " has the largest sum, " + maxSum);
+  }
+}`)},
+'Ragged array':{c:R_(String.raw`
+import java.util.Arrays;
+
+public class RaggedArray {
+  public static void main(String[] args) {
+    int[][] triangle = new int[5][];
+    for (int i = 0; i < triangle.length; i++) {
+      triangle[i] = new int[i + 1];
+      for (int j = 0; j <= i; j++)
+        triangle[i][j] = (j == 0 || j == i) ? 1
+          : triangle[i - 1][j - 1] + triangle[i - 1][j];
+    }
+    for (int[] row : triangle)
+      System.out.println(Arrays.toString(row));
+  }
+}`),d:'Rows start as null and get arrays of different lengths: Pascal’s triangle.'}},
+classes:{
+'Circle':{c:R_(String.raw`
+public class TestCircle {
+  public static void main(String[] args) {
+    Circle circle1 = new Circle();
+    System.out.println("Area of radius " + circle1.radius + " is " + circle1.getArea());
+
+    Circle circle2 = new Circle(25);
+    System.out.println("Area of radius " + circle2.radius + " is " + circle2.getArea());
+
+    circle2.radius = 100;
+    System.out.println("Area of radius " + circle2.radius + " is " + circle2.getArea());
+  }
+}
+
+class Circle {
+  double radius;
+
+  Circle() {
+    radius = 1;
+  }
+
+  Circle(double newRadius) {
+    radius = newRadius;
+  }
+
+  double getArea() {
+    return radius * radius * Math.PI;
+  }
+}`),d:'Two constructors, two objects, each with its own radius.'},
+'Static counter':{c:R_(String.raw`
+public class TestCircleCount {
+  public static void main(String[] args) {
+    System.out.println("Before: " + Circle.numberOfObjects + " objects");
+    Circle c1 = new Circle(1);
+    Circle c2 = new Circle(5);
+    c1.radius = 9;
+    System.out.println("c1 radius " + c1.radius + ", c2 radius " + c2.radius);
+    System.out.println("After: " + Circle.numberOfObjects + " objects");
+  }
+}
+
+class Circle {
+  double radius;
+  static int numberOfObjects = 0;
+
+  Circle(double newRadius) {
+    radius = newRadius;
+    numberOfObjects++;
+  }
+}`),d:'radius belongs to each object; numberOfObjects belongs to the class and is shared.'},
+'References':{c:R_(String.raw`
+public class References {
+  public static void main(String[] args) {
+    int i = 1;
+    int j = 2;
+    i = j;                         // copies the value 2
+
+    Circle c1 = new Circle(5);
+    Circle c2 = new Circle(9);
+    c1 = c2;                       // copies the reference
+    c1.radius = 20;
+    System.out.println("c2.radius is " + c2.radius);
+  }
+}
+
+class Circle {
+  double radius;
+  Circle(double r) { radius = r; }
+}`),d:'After c1 = c2, nothing refers to the first circle: it becomes garbage.'},
+'Private fields':{c:R_(String.raw`
+public class TestPrivate {
+  public static void main(String[] args) {
+    Circle c = new Circle(5.0);
+    System.out.println("Area: " + c.getArea());
+    c.radius = -3;   // not allowed: radius is private
+  }
+}
+
+class Circle {
+  private double radius;
+
+  public Circle(double radius) {
+    setRadius(radius);
+  }
+
+  public double getRadius() { return radius; }
+
+  public void setRadius(double newRadius) {
+    radius = (newRadius >= 0) ? newRadius : 0;
+  }
+
+  public double getArea() { return radius * radius * Math.PI; }
+}`),d:'Encapsulation: replace the last line of main with c.setRadius(-3); and the setter protects the data.'},
+'Default values & null':{c:R_(String.raw`
+public class NullDemo {
+  public static void main(String[] args) {
+    Student s = new Student();
+    System.out.println("name: " + s.name + ", age: " + s.age
+      + ", isScienceMajor: " + s.isScienceMajor);
+    System.out.println(s.name.length());
+  }
+}
+
+class Student {
+  String name;
+  int age;
+  boolean isScienceMajor;
+  char gender;
+}`),d:'Fields get default values. A null reference has no object to call a method on.'},
+'Array of objects':{c:R_(String.raw`
+public class TotalArea {
+  public static void main(String[] args) {
+    Circle[] circles = new Circle[3];
+    for (int i = 0; i < circles.length; i++)
+      circles[i] = new Circle(i + 1);
+
+    double total = 0;
+    for (Circle c : circles)
+      total += c.getArea();
+    System.out.printf("Total area is %.2f%n", total);
+  }
+}
+
+class Circle {
+  private double radius;
+  Circle(double radius) { this.radius = radius; }
+  double getArea() { return radius * radius * Math.PI; }
+}`),d:'An array of objects is an array of references; each starts as null.'}},
+oo:{
+'BMI class':{c:R_(String.raw`
+public class UseBMIClass {
+  public static void main(String[] args) {
+    BMI bmi1 = new BMI("Kim Yang", 18, 145, 70);
+    System.out.println("The BMI for " + bmi1.getName() + " is "
+      + bmi1.getBMI() + " " + bmi1.getStatus());
+
+    BMI bmi2 = new BMI("Susan King", 215, 70);
+    System.out.println("The BMI for " + bmi2.getName() + " is "
+      + bmi2.getBMI() + " " + bmi2.getStatus());
+  }
+}
+
+class BMI {
+  private String name;
+  private int age;
+  private double weight; // in pounds
+  private double height; // in inches
+  public static final double KILOGRAMS_PER_POUND = 0.45359237;
+  public static final double METERS_PER_INCH = 0.0254;
+
+  public BMI(String name, int age, double weight, double height) {
+    this.name = name;
+    this.age = age;
+    this.weight = weight;
+    this.height = height;
+  }
+
+  public BMI(String name, double weight, double height) {
+    this(name, 20, weight, height);
+  }
+
+  public double getBMI() {
+    double bmi = weight * KILOGRAMS_PER_POUND /
+      ((height * METERS_PER_INCH) * (height * METERS_PER_INCH));
+    return Math.round(bmi * 100) / 100.0;
+  }
+
+  public String getStatus() {
+    double bmi = getBMI();
+    if (bmi < 18.5)
+      return "Underweight";
+    else if (bmi < 25)
+      return "Normal";
+    else if (bmi < 30)
+      return "Overweight";
+    else
+      return "Obese";
+  }
+
+  public String getName() { return name; }
+  public int getAge() { return age; }
+  public double getWeight() { return weight; }
+  public double getHeight() { return height; }
+}`),d:'Class abstraction: users of BMI call getBMI() without knowing the formula. this(...) chains constructors.'},
+'Course (aggregation)':{c:R_(String.raw`
+public class TestCourse {
+  public static void main(String[] args) {
+    Course course1 = new Course("Data Structures");
+    Course course2 = new Course("Database Systems");
+
+    course1.addStudent("Peter Jones");
+    course1.addStudent("Kim Smith");
+    course1.addStudent("Anne Kennedy");
+    course2.addStudent("Peter Jones");
+    course2.addStudent("Steve Smith");
+
+    System.out.println("Students in course1: " + course1.getNumberOfStudents());
+    String[] students = course1.getStudents();
+    for (int i = 0; i < course1.getNumberOfStudents(); i++)
+      System.out.print(students[i] + ", ");
+    System.out.println();
+  }
+}
+
+class Course {
+  private String courseName;
+  private String[] students = new String[4];
+  private int numberOfStudents;
+
+  public Course(String courseName) {
+    this.courseName = courseName;
+  }
+
+  public void addStudent(String student) {
+    students[numberOfStudents] = student;
+    numberOfStudents++;
+  }
+
+  public String[] getStudents() { return students; }
+  public int getNumberOfStudents() { return numberOfStudents; }
+  public String getCourseName() { return courseName; }
+}`),d:'A Course has students. "Peter Jones" is one String object shared by both courses (same @ number).'},
+'Stack of integers':{c:R_(String.raw`
+public class TestStackOfIntegers {
+  public static void main(String[] args) {
+    StackOfIntegers stack = new StackOfIntegers(2);
+    for (int i = 0; i < 5; i++)
+      stack.push(i);
+    while (!stack.empty())
+      System.out.print(stack.pop() + " ");
+    System.out.println();
+  }
+}
+
+class StackOfIntegers {
+  private int[] elements;
+  private int size;
+  public static final int DEFAULT_CAPACITY = 16;
+
+  public StackOfIntegers() {
+    this(DEFAULT_CAPACITY);
+  }
+
+  public StackOfIntegers(int capacity) {
+    elements = new int[capacity];
+  }
+
+  public void push(int value) {
+    if (size >= elements.length) {
+      int[] temp = new int[elements.length * 2];
+      System.arraycopy(elements, 0, temp, 0, elements.length);
+      elements = temp;
+    }
+    elements[size++] = value;
+  }
+
+  public int pop() {
+    return elements[--size];
+  }
+
+  public boolean empty() {
+    return size == 0;
+  }
+
+  public int getSize() {
+    return size;
+  }
+}`),d:'When the array is full, push copies it into one twice as big; the old array becomes garbage.'},
+'Strings & StringBuilder':{c:R_(String.raw`
+public class StringsDemo {
+  public static void main(String[] args) {
+    String s = "Java";
+    String t = s;
+    s = s + " rocks";              // a new String object
+    System.out.println(t);         // the original is unchanged
+
+    String a = "Welcome";
+    String b = "Welcome";
+    String c = new String("Welcome");
+    System.out.println((a == b) + " " + (a == c) + " " + a.equals(c));
+
+    StringBuilder sb = new StringBuilder("level");
+    sb.reverse();
+    System.out.println(sb.toString().equals("level") ? "palindrome" : "not a palindrome");
+    sb.append("!").insert(0, "<");
+    System.out.println(sb);
+  }
+}`),d:'Strings are immutable: "changing" one makes a new object. A StringBuilder changes in place.'},
+'Wrapper classes':{c:R_(String.raw`
+public class Wrappers {
+  public static void main(String[] args) {
+    Integer count = 5;               // autoboxing
+    int total = count + 10;          // unboxing
+    System.out.println(total);
+
+    int n = Integer.parseInt("123");
+    double d = Double.parseDouble("3.5");
+    System.out.println(n + d);
+    System.out.println(Integer.MAX_VALUE + " " + Integer.toBinaryString(10));
+    System.out.println(Integer.parseInt("12a"));
+  }
+}`),d:'Wrapper classes turn text into numbers — and complain when the text is not a number.'}}
+};
+/*EX-END*/
+
+const LINES={start:{n:'Getting started',c:'red'},core:{n:'Core statements',c:'amber'},mod:{n:'Methods',c:'blue'},arr:{n:'Arrays',c:'green'},oop:{n:'Objects',c:'purple'}};
+const M=[
+{id:'intro',line:'start',t:'Computers, programs & Java',s:'Java basics',lede:'Write a program, compile it to bytecode, run it on the JVM. Break it on purpose and see which stage catches each kind of error.',
+notes:`<h3>What a computer is</h3><ul><li><b>CPU</b>: the control unit directs the work; the arithmetic/logic unit computes. Speed is measured in GHz; most CPUs have several cores.</li><li><b>Memory (RAM)</b>: an ordered sequence of bytes, each with an address. Fast and volatile — it is erased when power goes off.</li><li><b>Storage</b> (SSD, hard disk, USB drive) keeps programs and data permanently.</li><li><b>Input/output</b> devices and <b>communication</b> devices (Wi-Fi, Ethernet).</li><li>A <b>bit</b> is 0 or 1; a <b>byte</b> is 8 bits. A kilobyte is about a thousand bytes, a gigabyte about a billion.</li></ul>
+<h3>Programming languages</h3><ul><li><b>Machine language</b>: the CPU’s built-in binary instructions.</li><li><b>Assembly language</b>: short mnemonics (<code>add</code>, <code>sub</code>) translated by an assembler.</li><li><b>High-level languages</b> (Java, Python, C++) are English-like. An <b>interpreter</b> translates and runs one statement at a time; a <b>compiler</b> translates the whole program first.</li><li>The <b>operating system</b> (Windows, macOS, Linux) manages hardware and schedules programs.</li></ul>
+<h3>Java</h3><p>Developed at Sun Microsystems by a team led by James Gosling, released in 1995, now owned by Oracle. Java SE (standard), EE (enterprise) and ME (micro) editions. The <b>JDK</b> provides the compiler <code>javac</code>, the launcher <code>java</code> and the <b>API</b>, a library of predefined classes.</p>
+<h3>Anatomy of a program</h3><ul><li>Every program has at least one <b>class</b>. Class names start with a capital letter.</li><li>Execution starts in <code>public static void main(String[] args)</code>.</li><li>Each statement ends with a semicolon. A pair of braces forms a <b>block</b>.</li><li><b>Reserved words</b> (<code>class</code>, <code>public</code>, <code>static</code>, <code>void</code>) have fixed meanings. Java is case-sensitive: <code>Main</code> is not <code>main</code>.</li><li>Comments: <code>//</code> to end of line, <code>/* … */</code> for blocks, <code>/** … */</code> for javadoc.</li></ul>
+<h3>Create, compile, run</h3><div class="f">Welcome.java → <b>javac Welcome.java</b> → Welcome.class (bytecode) → <b>java Welcome</b> → output</div><p><b>Bytecode</b> is the same on every machine; the <b>Java Virtual Machine</b> runs it. That is “write once, run anywhere.” A public class must be saved in a file with the same name plus <code>.java</code>.</p>
+<h3>Style</h3><p>Meaningful names, consistent two- or four-space indentation, one statement per line, and one brace style (end-of-line or next-line) used throughout.</p>
+<h3>Three kinds of errors</h3><ul><li><b>Syntax (compile) errors</b>: broken rules — a missing semicolon, a misspelled keyword, unbalanced braces. The compiler reports them and makes no bytecode.</li><li><b>Runtime errors</b>: the program compiles but aborts while running — dividing an integer by zero, bad input.</li><li><b>Logic errors</b>: it runs and finishes, but the answer is wrong. Only testing finds them.</li></ul>`,
+quiz:[{q:'What does  javac Welcome.java  produce?',o:['Welcome.exe, native machine code','Welcome.class, containing bytecode','Welcome.jar','The program’s output'],a:1,w:'The compiler turns source into platform-independent bytecode; the JVM runs it.'},
+{q:'A public class named Welcome must be saved in…',o:['Welcome.java','welcome.java','Welcome.class','any file ending in .java'],a:0,w:'The file name must match the public class name exactly, including capitals.'},
+{q:'System.out.println(1 / 0); compiles. When it runs, the program…',o:['prints Infinity','prints 0','stops with an ArithmeticException — a runtime error','prints NaN'],a:2,w:'Integer division by zero is detected only while the program runs.'}]},
+{id:'elementary',line:'start',t:'Elementary programming',s:'Elementary',lede:'Every Java expression has a type. Type one in and watch Java decide, step by step, whether it is an int, a double or a char — then run programs that read from the keyboard.',
+notes:`<h3>Identifiers, variables, constants</h3><ul><li>Identifiers use letters, digits, <code>_</code> and <code>$</code>; they cannot start with a digit or be a reserved word.</li><li>Declare before use: <code>int count = 0;</code> A local variable must be given a value before it is read.</li><li>Named constants: <code>final double PI = 3.14159;</code></li><li>Conventions: <code>camelCase</code> variables and methods, <code>CapitalizedClasses</code>, <code>ALL_CAPS</code> constants.</li></ul>
+<h3>Numeric types</h3><div class="scroll"><table class="mono" style="font-size:13px"><thead><tr><th>Type</th><th class="n">Bits</th><th>Range</th></tr></thead><tbody>
+<tr><td>byte</td><td class="n">8</td><td>−128 to 127</td></tr><tr><td>short</td><td class="n">16</td><td>−32,768 to 32,767</td></tr><tr><td>int</td><td class="n">32</td><td>−2,147,483,648 to 2,147,483,647</td></tr><tr><td>long</td><td class="n">64</td><td>about ±9.2 × 10<sup>18</sup></td></tr><tr><td>float</td><td class="n">32</td><td>about 7 significant digits</td></tr><tr><td>double</td><td class="n">64</td><td>about 15–17 significant digits</td></tr></tbody></table></div>
+<p>An integer literal is an <code>int</code> (add <code>L</code> for long); a literal with a decimal point is a <code>double</code> (add <code>f</code> for float).</p>
+<h3>Reading input</h3><p><code>import java.util.Scanner;</code> then <code>Scanner input = new Scanner(System.in);</code> and <code>nextInt()</code>, <code>nextDouble()</code>, <code>next()</code>, <code>nextLine()</code>.</p>
+<h3>Operators</h3><ul><li><code>+ - * / %</code>. With two int operands, <code>/</code> <b>discards the fraction</b>: <code>5 / 2</code> is 2.</li><li><code>%</code> takes the sign of the left operand: <code>-7 % 3</code> is −1.</li><li><code>Math.pow(a, b)</code> for powers. Augmented assignment <code>+= -= *= /= %=</code>; increment <code>i++</code> (use, then add) and <code>++i</code> (add, then use).</li></ul>
+<h3>Type conversion</h3><ul><li>Mixed operands are <b>widened</b>: byte → short → int → long → float → double. <code>1 / 2.0</code> is 0.5.</li><li>Narrowing needs an explicit <b>cast</b>: <code>(int) 3.99</code> is 3 — truncated, not rounded.</li><li>Augmented assignment casts silently: with <code>int x = 5</code>, <code>x += 2.5</code> gives 7.</li></ul>
+<h3>Common errors</h3><ul><li><b>Overflow</b>: <code>2147483647 + 1</code> wraps to −2147483648, with no warning.</li><li><b>Round-off</b>: <code>1.0 - 0.1 - 0.1 - 0.1 - 0.1 - 0.1</code> prints 0.5000000000000001.</li><li><b>Unintended integer division</b>: <code>(9 / 5) * c</code> uses 1, not 1.8.</li><li>Undeclared or uninitialized variables.</li></ul>`,
+quiz:[{q:'What is  7 / 2 * 2.0 ?',o:['7.0','6.0','6','7'],a:1,w:'7 / 2 is integer division, giving 3; then 3 * 2.0 is 6.0.'},
+{q:'int x = 5;  x += 2.5;  What is x now?',o:['7.5','7','A compile error','8'],a:1,w:'Augmented assignment includes a cast: x = (int)(5 + 2.5).'},
+{q:'Integer.MAX_VALUE + 1 evaluates to…',o:['2147483648','An exception','−2147483648','Infinity'],a:2,w:'int arithmetic overflows silently and wraps around.'}]},
+{id:'selections',line:'core',t:'Selections',s:'Selections',lede:'Run a decision with different inputs and watch which branch lights up. Lines that ran are green; lines that never ran fade out.',
+notes:`<h3>boolean and relational operators</h3><p><code>&lt; &lt;= &gt; &gt;= == !=</code> produce a <code>boolean</code>: true or false. Use <code>==</code> to compare, <code>=</code> to assign.</p>
+<h3>if statements</h3><ul><li><b>One-way</b>: <code>if (cond) { … }</code></li><li><b>Two-way</b>: <code>if … else …</code></li><li><b>Multi-way</b>: <code>if … else if … else if … else</code> — the first true condition wins, so test from most to least restrictive.</li><li><b>Nested</b> ifs: an <code>else</code> matches the nearest unmatched <code>if</code> (the “dangling else”). Braces make intent clear.</li></ul>
+<h3>Common errors</h3><ul><li>A semicolon after <code>if (…)</code> ends the statement: the block below always runs.</li><li>Missing braces around a multi-statement body.</li><li>Comparing doubles with <code>==</code>; test <code>Math.abs(x - y) &lt; 1e-14</code> instead.</li><li>Redundant tests: write <code>if (even)</code>, not <code>if (even == true)</code>.</li></ul>
+<h3>Logical operators</h3><div class="f">!  not · &amp;&amp;  and · ||  or · ^  exclusive or</div><p><code>&amp;&amp;</code> and <code>||</code> <b>short-circuit</b>: the right side is skipped when the left decides. <b>De Morgan</b>: <code>!(a &amp;&amp; b)</code> equals <code>!a || !b</code>; <code>!(a || b)</code> equals <code>!a &amp;&amp; !b</code>.</p><p>Leap year: <code>(year % 4 == 0 &amp;&amp; year % 100 != 0) || year % 400 == 0</code>.</p>
+<h3>switch</h3><ul><li>Chooses a <code>case</code> by the value of an int, char, String or enum expression.</li><li>Without <code>break</code>, execution <b>falls through</b> into the next case.</li><li><code>default</code> handles every other value.</li></ul>
+<h3>Conditional operator</h3><p><code>max = (a &gt; b) ? a : b;</code></p>
+<h3>Random numbers</h3><p><code>(int) (Math.random() * 10)</code> gives 0 to 9.</p>
+<h3>Precedence (high to low)</h3><div class="f">x++ x-- · + - ++x --x ! (cast) · * / % · + - · &lt; &lt;= &gt; &gt;= · == != · ^ · &amp;&amp; · || · ?: · = += -= …</div>`,
+quiz:[{q:'With x = −5,  if (x > 0); System.out.println("positive");  prints…',o:['Nothing','positive','A compile error','−5'],a:1,w:'The semicolon is an empty statement; the println is no longer inside the if.'},
+{q:'In a switch, a case with no break…',o:['is a compile error','falls through to the next case','jumps to default','repeats'],a:1,w:'Execution continues into the following cases until a break or the end.'},
+{q:'!(a > 5 && b < 3) is equivalent to…',o:['a <= 5 || b >= 3','a <= 5 && b >= 3','a > 5 || b < 3','a < 5 || b > 3'],a:0,w:'De Morgan: negate each part and swap && for ||.'}]},
+{id:'strings',line:'core',t:'Math functions, characters & strings',s:'Strings',lede:'Index into a string, slice it, search it and compare it — then click any character to see the number Java stores for it.',
+notes:`<h3>The Math class</h3><ul><li>Trigonometry: <code>sin cos tan asin acos atan toRadians toDegrees</code> (angles in radians).</li><li>Exponents: <code>exp log log10 pow sqrt</code>.</li><li>Rounding: <code>ceil</code> (up), <code>floor</code> (down), <code>rint</code> (nearest, ties to even), <code>round</code> (adds 0.5 and floors; returns long).</li><li><code>min max abs random</code>. <code>a + (int) (Math.random() * b)</code> gives a to a + b − 1.</li></ul>
+<h3>char</h3><ul><li>A <code>char</code> holds one 16-bit <b>Unicode</b> character: <code>'A'</code> is 65, <code>'a'</code> is 97, <code>'0'</code> is 48. Letters and digits are consecutive.</li><li>Escape sequences: <code>\\n \\t \\" \\' \\\\ \\u0041</code>.</li><li>Casting: <code>(int) 'a'</code> is 97; <code>(char) 66</code> is 'B'. Arithmetic on chars gives an int: <code>'a' + 1</code> is 98.</li><li><code>Character.isDigit isLetter isLetterOrDigit isUpperCase isLowerCase toUpperCase toLowerCase</code>.</li></ul>
+<h3>String</h3><ul><li>A String is an object. Indexes run from 0 to <code>length() - 1</code>.</li><li><code>length() charAt(i) concat(s) toUpperCase() toLowerCase() trim()</code></li><li><code>substring(begin)</code> and <code>substring(begin, end)</code> — <b>end is exclusive</b>.</li><li><code>indexOf(ch or s) indexOf(s, from) lastIndexOf(s)</code> return −1 when not found.</li><li>Compare with <code>equals</code>, <code>equalsIgnoreCase</code>, <code>compareTo</code> (negative, 0 or positive) — <b>not</b> <code>==</code>, which compares references.</li><li><code>next()</code> reads one word; <code>nextLine()</code> reads the rest of the line.</li><li>Conversions: <code>Integer.parseInt("12")</code>, <code>Double.parseDouble("3.5")</code>, <code>"" + 12</code>.</li></ul>
+<h3>Formatting output</h3><div class="f">%d integer · %f floating point · %e scientific · %s string · %c char · %b boolean · %n newline<br>%8.2f width 8, two decimals · %-10s left-justify · %,d thousands separators</div><p>A mismatched specifier (<code>%d</code> with a double) throws IllegalFormatConversionException.</p>`,
+quiz:[{q:'"Welcome".substring(3, 5) is…',o:['"com"','"co"','"lc"','"come"'],a:1,w:'Characters at indexes 3 and 4; the end index 5 is excluded.'},
+{q:'(int) \'a\' is…',o:['65','97','48','a'],a:1,w:'Lowercase letters start at 97 in Unicode/ASCII.'},
+{q:'s1 and s2 both hold "Java". Which test reliably checks the characters are the same?',o:['s1 == s2','s1.equals(s2)','s1 = s2','s1.compareTo(s2) > 0'],a:1,w:'== compares references, which may differ for equal text.'}]},
+{id:'loops',line:'core',t:'Loops',s:'Loops',lede:'Step through a loop and fill in the trace table as you go: every row is one statement, every column one variable.',
+notes:`<h3>Three loops</h3><ul><li><b>while</b>: test first; the body may run zero times. Good when the number of repetitions is unknown.</li><li><b>do-while</b>: run the body, then test; it runs at least once. Good for input validation.</li><li><b>for</b>: <code>for (init; condition; update)</code> — good when you know the count. A variable declared in the header exists only in the loop.</li></ul><p>All three are equivalent; choose the one that reads most naturally.</p>
+<h3>Designing a loop</h3><ol><li>Write the statements that must repeat.</li><li>Wrap them in a loop.</li><li>Write the continuation condition and the statements that change it.</li></ol>
+<h3>Controlling a loop</h3><ul><li><b>Counter-controlled</b>: repeat a known number of times.</li><li><b>Sentinel-controlled</b>: repeat until a special value (such as 0) is read. Input redirection (<code>java SentinelValue &lt; input.txt</code>) feeds a file in as keyboard input.</li><li><b>Confirmation</b>: ask the user whether to continue.</li></ul>
+<h3>Nested loops</h3><p>The inner loop completes all its iterations for each iteration of the outer loop: an outer loop of 4 and an inner loop of 4 run the body 16 times.</p>
+<h3>break and continue</h3><p><code>break</code> leaves the loop immediately. <code>continue</code> ends the current iteration and goes on to the next one (in a for loop, the update still runs).</p>
+<h3>Common errors</h3><ul><li><b>Off-by-one</b>: <code>&lt;=</code> where <code>&lt;</code> was meant, or the reverse.</li><li><b>Infinite loop</b>: the condition never becomes false.</li><li>A semicolon after the header: <code>for (…);</code> gives the loop an empty body.</li><li>Using a double as a loop counter: 0.1 is not exact, so tests like <code>x &lt;= 1.0</code> behave unpredictably.</li></ul>
+<h3>Case studies</h3><p>Greatest common divisor, future tuition, decimal to hexadecimal, palindromes, prime numbers, Monte Carlo estimation of π.</p>`,
+quiz:[{q:'How many times does the body run?  for (int i = 0; i < 10; i += 3)',o:['3','4','10','3.33'],a:1,w:'i takes the values 0, 3, 6 and 9.'},
+{q:'A do-while loop’s body runs at least…',o:['zero times','once','twice','until a break'],a:1,w:'The condition is checked after the body.'},
+{q:'continue inside a loop…',o:['ends the loop','ends the current iteration and goes on to the next','exits the method','restarts from the beginning'],a:1,w:'break ends the loop; continue only skips the rest of this pass.'}]},
+{id:'methods',line:'mod',t:'Methods',s:'Methods',lede:'Each call pushes a frame onto the call stack, holding its own parameters and locals. Step through calls and returns, and see why swap cannot swap.',
+notes:`<h3>Defining a method</h3><div class="f">modifiers  returnType  name(parameters) {  body  }<br>public static int max(int num1, int num2) { … }</div><ul><li>The <b>signature</b> is the name plus the parameter list.</li><li>Parameters in the header are <b>formal parameters</b>; values in a call are <b>arguments</b> (actual parameters).</li><li>A <b>value-returning</b> method must <code>return</code> a value on every path. A <code>void</code> method returns nothing.</li></ul>
+<h3>Calling a method</h3><p>Each call creates an <b>activation record</b> (stack frame) holding its parameters and local variables, pushed onto the <b>call stack</b>. When the method returns, its frame is popped and control goes back to the caller.</p>
+<h3>Pass-by-value</h3><p>Java copies the argument’s value into the parameter. Changing the parameter inside the method does not change the caller’s variable — which is why a <code>swap(int, int)</code> method cannot swap the caller’s variables.</p>
+<h3>Modularizing code</h3><p>Methods remove duplication, isolate problems and make code reusable: <code>gcd(n1, n2)</code>, <code>isPrime(n)</code>, <code>printPrimeNumbers(count)</code>.</p>
+<h3>Overloading</h3><ul><li>Several methods may share a name if their parameter lists differ.</li><li>The compiler picks the most specific match: <code>max(3, 4)</code> calls <code>max(int, int)</code>; <code>max(3, 5.4)</code> widens 3 and calls <code>max(double, double)</code>.</li><li>Return type alone cannot distinguish overloads. Two equally good matches are an <b>ambiguous invocation</b>.</li></ul>
+<h3>Scope of local variables</h3><p>A local variable exists from its declaration to the end of the block that contains it. A variable declared in a for header exists only in that loop. You cannot declare the same name twice in nested blocks of one method.</p>
+<h3>Method abstraction and stepwise refinement</h3><p>A caller needs only the method’s signature and contract, not its body (<b>information hiding</b>). Design large programs top-down, breaking them into methods, then implement and test bottom-up, using <b>stubs</b> for unfinished methods.</p>`,
+quiz:[{q:'A method’s signature consists of…',o:['its return type and name','its name and parameter list','its modifiers and return type','its body'],a:1,w:'That is why overloads must differ in their parameter lists.'},
+{q:'After swap(num1, num2), where swap exchanges its two int parameters, num1 and num2 in main…',o:['are swapped','are unchanged — Java passed copies of the values','become 0','cause a compile error'],a:1,w:'swap changes only its own copies, in its own frame.'},
+{q:'With max(int, int) and max(double, double) both defined, max(3, 4.5) calls…',o:['max(int, int)','max(double, double)','neither: it is ambiguous','a compile error'],a:1,w:'4.5 cannot become an int, but 3 can widen to a double.'}]},
+{id:'arrays',line:'arr',t:'Single-dimensional arrays',s:'Arrays',lede:'An array is a row of numbered boxes on the heap. Watch the index variables move as searches and sorts run.',
+notes:`<h3>Declaring and creating</h3><ul><li><code>double[] myList = new double[10];</code> — the variable holds a <b>reference</b> to the array.</li><li>Size is fixed at creation: <code>myList.length</code>. Indexes run from 0 to <code>length - 1</code>; anything else throws ArrayIndexOutOfBoundsException.</li><li>Default values: 0 for numbers, <code>'\\u0000'</code> for char, false for boolean, null for objects.</li><li>An <b>array initializer</b> declares, creates and fills at once: <code>double[] list = {1.9, 2.9, 3.4};</code></li></ul>
+<h3>Processing arrays</h3><p>Fill with input or random values, print, sum, find the largest element and its index, shuffle, shift. The <b>foreach</b> loop reads every element without an index: <code>for (double e : myList)</code>.</p>
+<h3>Copying</h3><ul><li><code>list2 = list1</code> copies the <b>reference</b>: both names now point to one array, and the old list2 array becomes garbage.</li><li>To copy the contents use a loop, <code>System.arraycopy(src, srcPos, dest, destPos, length)</code> or <code>Arrays.copyOf</code>.</li></ul>
+<h3>Arrays and methods</h3><p>Passing an array passes a copy of its reference, so the method works on the caller’s array. A method can also return an array, such as <code>reverse(list)</code>. Variable-length arguments: <code>printMax(double... numbers)</code>.</p>
+<h3>Searching</h3><ul><li><b>Linear search</b> compares the key with each element: up to n comparisons.</li><li><b>Binary search</b> needs a <b>sorted</b> array: compare with the middle and discard half each time, about log<sub>2</sub> n comparisons. When the key is missing it returns <code>-low - 1</code>, which encodes where the key would go.</li></ul>
+<h3>Sorting</h3><p><b>Selection sort</b>: find the smallest remaining element and swap it into position i, for i = 0 to n − 2.</p>
+<h3>The Arrays class</h3><p><code>Arrays.sort</code>, <code>Arrays.binarySearch</code>, <code>Arrays.equals</code>, <code>Arrays.fill</code>, <code>Arrays.toString</code> (needs <code>import java.util.Arrays;</code>).</p>
+<h3>Command-line arguments</h3><p><code>main</code>’s <code>String[] args</code> holds the words typed after the class name: <code>java Calculator 2 + 3</code>.</p>`,
+quiz:[{q:'int[] a = new int[5];  What is a[2] before any assignment?',o:['null','0','undefined','unpredictable'],a:1,w:'Numeric array elements default to 0.'},
+{q:'int[] list2 = list1;  list2[0] = 99;  Now list1[0] is…',o:['unchanged','99','0','a compile error'],a:1,w:'Both variables refer to the same array.'},
+{q:'Binary search requires the array to be…',o:['short','sorted','of type int','free of duplicates'],a:1,w:'Discarding half only works when order tells you which half.'}]},
+{id:'arrays2d',line:'arr',t:'Multidimensional arrays',s:'2D arrays',lede:'A two-dimensional array is an array of rows. Step through table algorithms and watch the row and column indexes sweep the grid.',
+notes:`<h3>Declaring and creating</h3><ul><li><code>int[][] matrix = new int[5][5];</code> — row index first, then column: <code>matrix[2][1] = 7;</code></li><li>Initializer: <code>int[][] m = {{1, 2, 3}, {4, 5, 6}};</code></li><li>A 2D array is a one-dimensional array whose elements are arrays. <code>m.length</code> is the number of rows; <code>m[i].length</code> is the length of row i.</li></ul>
+<h3>Ragged arrays</h3><p>Rows may differ in length: <code>int[][] t = new int[5][];</code> creates five null rows, then <code>t[i] = new int[i + 1];</code> gives each its own length.</p>
+<h3>Processing</h3><div class="f">for (int row = 0; row &lt; m.length; row++)<br>&nbsp;&nbsp;for (int col = 0; col &lt; m[row].length; col++)<br>&nbsp;&nbsp;&nbsp;&nbsp;… m[row][col] …</div><ul><li>Fill with input or random values; print in rows.</li><li>Sum all elements; sum each column (swap the loops: column outer, row inner).</li><li>Find the row with the largest sum.</li><li>Shuffle by swapping each element with a random one.</li></ul>
+<h3>Passing to methods</h3><p>Pass the reference as with 1D arrays: <code>public static int sum(int[][] m)</code>.</p>
+<h3>Case studies</h3><ul><li><b>Grading a multiple-choice test</b>: one row per student, one column per question, compared with a key array.</li><li><b>Closest pair</b>: points stored as <code>double[n][2]</code>; check every pair.</li><li><b>Sudoku</b>: verify each row, column and 3 × 3 box.</li></ul>
+<h3>More dimensions</h3><p><code>double[][][] scores = new double[6][5][2];</code> — for example student × exam × part.</p>`,
+quiz:[{q:'int[][] m = new int[3][4];  m.length and m[0].length are…',o:['4 and 3','3 and 4','12 and 4','3 and 3'],a:1,w:'3 rows, each of length 4.'},
+{q:'In a ragged array…',o:['every row has the same length','rows can have different lengths','every element is null','there can be only two rows'],a:1,w:'Each row is its own array object.'},
+{q:'To add up column j, loop over the rows i and add…',o:['m[j][i]','m[i][j]','m[i].length','m[j]'],a:1,w:'The row varies; the column stays fixed.'}]},
+{id:'classes',line:'oop',t:'Objects & classes',s:'Classes',lede:'A class is a blueprint; each new builds an object on the heap. Watch references point at objects, static fields stay shared, and objects with no references become garbage.',
+notes:`<h3>Objects and classes</h3><p>An object has <b>state</b> (data fields) and <b>behavior</b> (methods). A class is the template; an object is an <b>instance</b>. UML class diagrams show the class name, then fields (<code>radius: double</code>), then constructors and methods (<code>getArea(): double</code>).</p>
+<h3>Constructors</h3><ul><li>Same name as the class, <b>no return type</b> (not even void), invoked with <code>new</code>.</li><li>Constructors can be overloaded. If a class declares none, Java supplies a no-arg <b>default constructor</b>.</li></ul>
+<h3>Reference variables</h3><ul><li><code>Circle c = new Circle(5);</code> — c holds a reference to the object.</li><li>Use the dot operator: <code>c.radius</code>, <code>c.getArea()</code>.</li><li>Fields get default values (0, false, <code>'\\u0000'</code>, null); local variables do not.</li><li>Calling a method on <code>null</code> throws NullPointerException.</li><li><code>c1 = c2</code> copies a reference. An object no longer referenced is <b>garbage</b>; the JVM reclaims it.</li></ul>
+<h3>Library classes</h3><p><code>Date</code>, <code>Random</code> (<code>new Random(3).nextInt(100)</code> — the same seed gives the same sequence), <code>Point2D</code>.</p>
+<h3>Static vs instance</h3><ul><li>An <b>instance</b> field belongs to each object. A <b>static</b> field is shared by all objects of the class (underlined in UML).</li><li>Static methods are called through the class (<code>Math.pow</code>) and cannot use instance fields directly.</li></ul>
+<h3>Visibility and encapsulation</h3><ul><li><code>public</code>: anywhere. <code>private</code>: only inside the class. No modifier: the same package.</li><li>Make fields <b>private</b> and provide <b>getters</b> (accessors) and <b>setters</b> (mutators) so the class controls its own data.</li></ul>
+<h3>More</h3><ul><li>Passing an object passes a copy of the reference, so the method can change the object.</li><li>An array of objects is an array of references: <code>Circle[] c = new Circle[10];</code> holds 10 nulls until you create the circles.</li><li><b>Immutable</b> classes: all fields private, no setters, no methods returning references to mutable fields.</li><li><code>this</code> refers to the current object: <code>this.radius = radius;</code> resolves a hidden field.</li></ul>`,
+quiz:[{q:'A constructor…',o:['has return type void','has the class’s name and no return type','must be static','is called like any other method'],a:1,w:'It runs when you use new.'},
+{q:'A static field…',o:['has a separate copy in each object','is shared by all instances of the class','can never change','must be private'],a:1,w:'numberOfObjects counts every Circle because there is only one copy.'},
+{q:'Circle c1 = new Circle(1);  Circle c2 = new Circle(2);  c1 = c2;  How many of the two circles are still referenced?',o:['0','1','2','3'],a:1,w:'The radius-1 circle has no reference left and becomes garbage.'}]},
+{id:'oothinking',line:'oop',t:'Object-oriented thinking',s:'OO thinking',lede:'Design with classes: hide details behind methods, build objects out of other objects, and see why Strings never change while StringBuilders do.',
+notes:`<h3>Class abstraction and encapsulation</h3><p>Separate a class’s <b>use</b> from its <b>implementation</b>. The public methods and their descriptions form the <b>class contract</b>; clients rely on it without knowing the body. Examples: <code>Loan</code>, <code>BMI</code>, <code>Course</code>.</p>
+<h3>Procedural vs object-oriented thinking</h3><p>Procedural code passes data to methods. Object-oriented code bundles data with the methods that act on it, so a <code>BMI</code> object computes its own <code>getBMI()</code> and <code>getStatus()</code>.</p>
+<h3>Class relationships</h3><ul><li><b>Association</b>: a general binary relationship, such as Student takes Course, with multiplicities (<code>5..60</code>, <code>0..*</code>).</li><li><b>Aggregation</b>: a has-a relationship; the owned object can exist on its own (open diamond in UML).</li><li><b>Composition</b>: exclusive ownership; the part cannot exist without the whole (filled diamond).</li></ul>
+<h3>Case studies</h3><p><code>Course</code> keeps an array of student names; <code>StackOfIntegers</code> stores values in an array and doubles it when full.</p>
+<h3>Primitive values as objects</h3><ul><li>Wrapper classes: <code>Integer Double Character Boolean Long Short Byte Float</code>.</li><li><code>Integer.parseInt("12")</code>, <code>Integer.valueOf</code>, <code>Integer.MAX_VALUE</code>.</li><li><b>Autoboxing</b>: <code>Integer i = 5;</code> <b>Unboxing</b>: <code>int n = i + 1;</code></li><li><code>BigInteger</code> and <code>BigDecimal</code> for arbitrarily large or exact values.</li></ul>
+<h3>The String class</h3><ul><li>Strings are <b>immutable</b>: <code>s = s + "!"</code> creates a new object.</li><li>Literals with the same text are <b>interned</b> (shared), so <code>==</code> may happen to be true; always use <code>equals</code>.</li><li><code>replace</code>, <code>split</code>, <code>matches</code> (regular expressions), <code>toCharArray</code>, <code>String.valueOf</code>, <code>String.format</code>.</li></ul>
+<h3>StringBuilder and StringBuffer</h3><p>Mutable strings: <code>append insert delete reverse setCharAt toString</code>. Use them when building text in a loop. StringBuffer is the synchronized, thread-safe version.</p>`,
+quiz:[{q:'After  String s = "Java";  s = s + "!";',o:['the original object changed to "Java!"','s refers to a new String; "Java" is unchanged','it is a compile error','s is null'],a:1,w:'Strings are immutable; concatenation builds a new object.'},
+{q:'A Course that holds Student objects, where students exist independently of the course, is…',o:['inheritance','aggregation','composition','a static relationship'],a:1,w:'Has-a with independent parts is aggregation; exclusive ownership would be composition.'},
+{q:'Integer i = 5;  is an example of…',o:['unboxing','autoboxing','casting','overloading'],a:1,w:'The int 5 is automatically wrapped in an Integer.'}]}
+];
+
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const COL={red:'#e6261f',blue:'#0a5cff',amber:'#ffb400',green:'#00a05a',purple:'#7a3cd6'};
+const store={get(){try{return JSON.parse(localStorage.getItem('cs155-course-v1')||'{}')}catch(e){return{}}},set(o){try{localStorage.setItem('cs155-course-v1',JSON.stringify(o))}catch(e){}}};
+const pressGroup=(el,sel,cb)=>el.querySelectorAll(sel).forEach(b=>b.addEventListener('click',()=>{el.querySelectorAll(sel).forEach(x=>x.setAttribute('aria-pressed',x===b));cb(b)}));
+
+/* ---------- views for the Java labs ---------- */
+const HL=/(\/\/.*$)|("(?:[^"\\]|\\.)*"?)|('(?:[^'\\]|\\.)*'?)|\b(\d+(?:\.\d+)?[dDfFlL]?)\b|\b(public|private|protected|static|final|void|class|new|return|if|else|while|for|do|switch|case|default|break|continue|this|null|true|false|import|extends|int|double|boolean|char|long|float|byte|short|var)\b/g;
+function hl(l){let o='',last=0;l.replace(HL,(m,c,s,ch,num,kw,off)=>{o+=esc(l.slice(last,off));o+=`<span class="${c?'t-com':s||ch?'t-str':num?'t-num':'t-kw'}">${esc(m)}</span>`;last=off+m.length;return m});return o+esc(l.slice(last))}
+function codeHTML(src,o){const lines=src.split('\n');return`<div class="codev">${lines.map((l,j)=>{const n=j+1;let c='';
+ if(o.err===n)c=' errl';else if(n===o.cur)c=' cur';else if(n===o.prev)c=' prev';else if(o.cov){if(o.cov[n])c=' hit';else if(o.stmt&&o.stmt.has(n))c=' miss'}
+ return`<div class="ln${c}" data-l="${n}"><span class="no">${n}</span><span>${hl(l)||' '}</span>${o.cov&&o.cov[n]?`<span class="cnt">ran ×${o.cov[n]}</span>`:''}</div>`}).join('')}</div>`}
+function consoleHTML(out,upto){let n=upto,h='';for(const sg of out){if(n<=0)break;const s=sg.s.slice(0,n);n-=sg.s.length;h+=sg.inp?`<span class="cin">${esc(s)}</span>`:esc(s)}return h}
+function vtxt(d){switch(d.k){case'u':return'<span class="small" title="declared, no value yet">?</span>';case'null':return'<span class="t-kw">null</span>';case'p':return esc(d.s);case's':return`<span class="t-str">${esc(JSON.stringify(d.s))}</span><span class="rid">@${d.id}</span>`;case'r':return`<span class="ref">→ #${d.id}</span>`;case'o':return`<span class="small">${esc(d.s)}</span>`}return''}
+const PTR=['i','j','k','low','mid','high','index','currentMinIndex','minIndex','maxIndex','left','right','size'];
+function memHTML(sn){
+ const fr=sn.frames.slice().reverse();const who=new Map();
+ const add=(d,n)=>{if(d.k==='r'){if(!who.has(d.id))who.set(d.id,[]);if(!who.get(d.id).includes(n))who.get(d.id).push(n)}};
+ fr.forEach(f=>{f.vars.forEach(([n,,d])=>add(d,n));if(f.self)add(f.self,'this')});sn.st.forEach(([n,,d])=>add(d,n));
+ const top=fr[0];const ints=new Map();if(top)for(const[n,t,d]of top.vars)if(d.k==='p'&&(t==='int')&&PTR.includes(n))ints.set(n,+d.s);
+ const stk=fr.map((f,q)=>`<div class="fbox${q===0?' top':''}"><h4>${esc(f.label)}${q===0?' <span class="small">· running</span>':''}</h4><table class="vt"><tbody>${f.self?`<tr><td>this</td><td>${vtxt(f.self)}</td></tr>`:''}${f.vars.filter(([n])=>!(n==='args'&&f.label==='main')).map(([n,t,d])=>`<tr><td>${esc(n)}<span class="ty">${esc(t)}</span></td><td>${vtxt(d)}</td></tr>`).join('')||(f.self?'':'<tr><td class="small">no variables yet</td></tr>')}</tbody></table></div>`).join('')||'<p class="small">The program has finished.</p>';
+ const sts=sn.st.length?`<div class="fbox"><h4>static fields</h4><table class="vt"><tbody>${sn.st.map(([n,t,d])=>`<tr><td>${esc(n)}<span class="ty">${esc(t)}</span></td><td>${vtxt(d)}</td></tr>`).join('')}</tbody></table></div>`:'';
+ const byId=new Map(sn.H.map(h=>[h.id,h]));const shown=new Set();let heap='';
+ const whoTxt=h=>h.g?' <span class="who">· garbage: nothing refers to it</span>':who.has(h.id)?` <span class="who">← ${esc(who.get(h.id).join(', '))}</span>`:'';
+ for(const h of sn.H){if(shown.has(h.id))continue;shown.add(h.id);
+  if(h.k==='arr'&&h.t.endsWith('[][]')&&h.a.length&&h.a.every(x=>x.k==='r'||x.k==='null')){
+   const rows=h.a.map(x=>x.k==='r'?byId.get(x.id):null);rows.forEach(r=>r&&shown.add(r.id));
+   const ri=['i','row','r'].map(n=>ints.has(n)?ints.get(n):(top&&top.vars.find(v=>v[0]===n&&v[2].k==='p')?+top.vars.find(v=>v[0]===n)[2].s:null)).find(v=>v!=null);
+   const ciName=['j','col','c','column'].find(n=>top&&top.vars.some(v=>v[0]===n&&v[2].k==='p'));const ci=ciName?+top.vars.find(v=>v[0]===ciName)[2].s:null;
+   const w=Math.max(0,...rows.map(r=>r?r.a.length:0));
+   heap+=`<div class="hbox${h.g?' g':''}"><div class="hh"><b>#${h.id}</b> ${esc(h.t.slice(0,-4))}[${h.a.length}][]${whoTxt(h)}</div><div class="scroll"><table class="gt"><thead><tr><th></th>${Array.from({length:w},(_,c)=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.map((r,q)=>`<tr><th>${q}</th>${r?r.a.map((d,c)=>`<td class="${q===ri&&c===ci?'on':q===ri?'rowon':c===ci&&ri==null?'colon':''}">${vtxt(d)}</td>`).join('')+'<td class="x"></td>'.repeat(w-r.a.length):`<td colspan="${Math.max(1,w)}" class="x small">null</td>`}</tr>`).join('')}</tbody></table></div></div>`;continue}
+  if(h.k==='arr'){const P=new Map();if(!h.g)for(const[n,v]of ints)if(v>=0&&v<h.a.length){if(!P.has(v))P.set(v,[]);P.get(v).push(n)}
+   const shownA=h.a.slice(0,40);
+   heap+=`<div class="hbox${h.g?' g':''}"><div class="hh"><b>#${h.id}</b> ${esc(h.t.slice(0,-2))}[${h.a.length}]${whoTxt(h)}</div><div class="arr">${shownA.map((d,q)=>`<div class="cell${P.has(q)?' on':''}"><span class="ix">${q}</span><span class="cv">${vtxt(d)}</span>${P.has(q)?`<span class="ptr">${esc(P.get(q).join(' '))}</span>`:''}</div>`).join('')}${h.a.length>40?'<span class="small">…</span>':''}${!h.a.length?'<span class="small">empty</span>':''}</div></div>`;continue}
+  if(h.k==='obj'){heap+=`<div class="hbox${h.g?' g':''}"><div class="hh"><b>#${h.id}</b> ${esc(h.cls)} object${whoTxt(h)}</div><table class="vt"><tbody>${h.f.map(([n,t,d])=>`<tr><td>${esc(n)}<span class="ty">${esc(t)}</span></td><td>${vtxt(d)}</td></tr>`).join('')||'<tr><td class="small">no fields</td></tr>'}</tbody></table></div>`;continue}
+  heap+=`<div class="hbox${h.g?' g':''}"><div class="hh"><b>#${h.id}</b> StringBuilder${whoTxt(h)}</div><div class="mono"><span class="t-str">"${esc(h.s)}"</span></div></div>`}
+ return`<div class="mem"><div><div class="colh">Call stack · newest on top</div>${stk}${sts}</div><div><div class="colh">Heap · objects and arrays</div>${heap||'<p class="small">Nothing on the heap yet. Arrays and objects appear here when they are created.</p>'}</div></div>`}
+function traceHTML(R,pos,src){const S=R.snaps;const L=src.split('\n');const cols=[];
+ for(const s of S){const f=s.frames[0];if(!f)continue;for(const[n,t]of f.vars){if(n==='args'||t==='Scanner'||t==='Random')continue;if(!cols.includes(n))cols.push(n)}}
+ const outTxt=(a,b)=>{let t='',n=0;for(const sg of R.out){const s0=n,s1=n+sg.s.length;n=s1;if(s1<=a||s0>=b)continue;if(!sg.inp)t+=sg.s.slice(Math.max(0,a-s0),Math.min(sg.s.length,b-s0))}return t};
+ const val=(s,n)=>{const f=s.frames[0];const v=f&&f.vars.find(x=>x[0]===n);return v?vtxt(v[2]):''};
+ const rows=[];const lim=Math.min(pos,600);
+ for(let k=1;k<=lim;k++){const a=S[k-1],b=S[k];const code=(L[a.line-1]||'').trim();const o=outTxt(a.out,b.out);
+  rows.push(`<tr class="${k===pos?'now':''}"><td class="n">${a.line}</td><td title="${esc(code)}">${esc(code.length>30?code.slice(0,29)+'…':code)}</td>${cols.map(n=>{const v=val(b,n);return`<td class="${v!==val(a,n)?'ch':''}">${v}</td>`}).join('')}<td>${esc(o.replace(/\n/g,'⏎'))}</td></tr>`)}
+ return`<div class="lbl">Trace table <span>one row per statement run · changed values highlighted</span></div><div class="tracewrap"><table class="trace"><thead><tr><th class="n">Line</th><th>Statement</th>${cols.map(c=>`<th>${esc(c)}</th>`).join('')}<th>Output</th></tr></thead><tbody>${rows.join('')||`<tr><td colspan="${cols.length+3}" class="small">Press Step to run the first statement.</td></tr>`}</tbody></table></div>${pos>600?'<p class="small">Showing the first 600 rows.</p>':''}`}
+function umlHTML(classes){if(!classes||!classes.length)return'';const vis=v=>v==='private'?'-':v==='public'?'+':v==='protected'?'#':'&nbsp;';const names=new Set(classes.map(c=>c.name));
+ const rel=[];for(const c of classes)for(const f of c.fields){const b=f.type.replace(/\[\]/g,'');if(names.has(b)&&b!==c.name)rel.push(`${c.name} has ${f.type.endsWith('[]')?'many':'a'} ${b}`)}
+ for(const c of classes)for(const m of c.methods)if(m.name==='main')for(const o of classes)if(o!==c&&m.body&&JSON.stringify(m.body).includes(`"cls":"${o.name}"`))rel.push(`${c.name} uses ${o.name}`);
+ return`<div class="lbl">UML class diagram <span>generated from the code · underlined = static · − private · + public</span></div><div class="uml">${classes.map(c=>`<div class="umlbox"><div>${esc(c.name)}</div><div>${c.fields.map(f=>`<div class="${f.static?'ul':''}">${vis(f.vis)}${esc(f.name)}: ${esc(f.type)}</div>`).join('')||'&nbsp;'}</div><div>${[...c.ctors.map(k=>({...k,ret:null})),...c.methods].map(m=>`<div class="${m.static?'ul':''}">${vis(m.vis)}${esc(m.name)}(${esc(m.params.map(p=>p.n+': '+p.t).join(', '))})${m.ret?': '+esc(m.ret):''}</div>`).join('')||'&nbsp;'}</div></div>`).join('')}</div>${rel.length?`<p class="small">${esc([...new Set(rel)].join(' · '))}</p>`:''}`}
+function errHTML(err,src,file){const L=src.split('\n');return`<div class="ebox"><b>Compile error${err.line?` · line ${err.line}`:''}</b><pre>${esc(file)}:${err.line}: error: ${esc(err.message)}${err.line&&L[err.line-1]!==undefined?'\n'+esc(L[err.line-1]):''}</pre><p class="small" style="margin:6px 0 0">javac produced no bytecode, so nothing ran.</p></div>`}
+
+function javaLab(host,cfg){
+ const w=document.createElement('div');host.appendChild(w);
+ const names=Object.keys(cfg.ex);let R=null,pos=0,tm,cur=names[0];
+ w.innerHTML=`<h2${cfg.second?' style="margin-top:32px"':''}>${cfg.h}</h2>${cfg.p?`<p class="small" style="margin-top:-6px">${cfg.p}</p>`:''}
+ <div class="chips" data-r="ex">${names.map((n,i)=>`<button aria-pressed="${i===0}" data-k="${esc(n)}">${esc(n)}</button>`).join('')}</div>
+ <p class="small" data-r="d" style="min-height:1.4em;margin:8px 0"></p>
+ ${cfg.file?'<div class="ctrls" style="margin-top:0"><label>File name <input type="text" data-r="file" spellcheck="false"></label></div>':''}
+ ${cfg.step||cfg.cov?'<details data-r="ed"><summary class="lbl" style="cursor:pointer;min-height:44px;align-items:center">Edit the code <span>change it and it re-runs</span></summary>':''}<textarea data-r="src" spellcheck="false" aria-label="Java source code"></textarea>${cfg.step||cfg.cov?'</details>':''}
+ <div data-r="inbox"${cfg.stdin?'':' hidden'}><div class="lbl">Keyboard input <span>what the user types, one value per line</span></div><textarea data-r="in" spellcheck="false" style="min-height:58px;margin-top:4px" aria-label="Keyboard input"></textarea><div class="chips" data-r="tries" style="margin-top:6px"></div></div>
+ <div class="ctrls"><button class="pri" data-r="run">Compile &amp; run</button><span class="small">Edits re-run automatically.</span></div>
+ <div data-r="pipe"></div>
+ ${cfg.step?`<div data-r="stepper"><div class="ctrls" style="margin-bottom:4px"><button data-r="first" aria-label="Back to start">⏮</button><button data-r="back">← Back</button><button class="pri" data-r="fwd">Step →</button><button data-r="last">End ⏭</button></div><input type="range" data-r="rng" min="0" value="0" aria-label="Step through the program"><div class="status" data-r="pos"></div></div>`:''}
+ <div data-r="res"></div>`;
+ const q=r=>w.querySelector(`[data-r="${r}"]`);
+ const file=()=>cfg.file?q('file').value.trim():undefined;
+ const run=()=>{R=J.run(q('src').value,{stdin:q('in').value,file:file(),record:!!cfg.step});pos=0;render()};
+ const render=()=>{const src=q('src').value;const err=R.err;let h='';const fn=file()||((R.classes.find(c=>c.pub)||R.classes[0]||{name:'Main'}).name+'.java');
+  if(cfg.file){const st=err?(err.phase==='compile'?1:3):9;const chip=(t,j)=>`<span class="${st===j?'bad':st>j?'ok':''}">${t}</span>`;const cn=fn.replace(/\.java$/,'');
+   q('pipe').innerHTML=`<div class="pipe">${chip(esc(fn),0)}<i></i>${chip('javac compiles',1)}<i></i>${chip(esc(cn)+'.class bytecode',2)}<i></i>${chip('JVM runs',3)}<i></i>${chip('Output',4)}</div>`}
+  if(err&&err.phase==='compile'){if(cfg.step)q('stepper').hidden=true;h+=errHTML(err,src,fn)+codeHTML(src,{err:err.line});q('res').innerHTML=h;return}
+  const exc=err?`<span class="cx">${esc(J.exText(err))}</span>`:'';
+  const hint=err&&err.ex==='NoSuchElementException'?'<p class="small">The program asked for more input than the keyboard box holds. Add another line of input.</p>':err&&err.ex==='InputMismatchException'?'<p class="small">The input did not match the type the program asked for.</p>':'';
+  if(cfg.step&&R.snaps.length){q('stepper').hidden=false;const S=R.snaps;pos=Math.max(0,Math.min(pos,S.length-1));const sn=S[pos];const rng=q('rng');rng.max=S.length-1;rng.value=pos;
+   q('first').disabled=q('back').disabled=pos===0;q('fwd').disabled=q('last').disabled=pos===S.length-1;
+   q('pos').innerHTML=sn.end?`<b>${err?'Stopped by an exception':'Program finished'}</b> · step ${pos+1} of ${S.length}`:`Step ${pos+1} of ${S.length} · <b>about to run line ${sn.line}</b>${pos>0?` · just ran line ${S[pos-1].line}`:''}${R.truncated?' · recording stopped after 2,500 steps':''}`;
+   h+=codeHTML(src,{cur:sn.end?(err?0:0):sn.line,prev:pos>0?S[pos-1].line:0,err:sn.end&&err?err.line:0});
+   h+=cfg.view==='trace'?traceHTML(R,pos,src):memHTML(sn);
+   const atEnd=pos===S.length-1;
+   h+=`<div class="lbl">Console</div><div class="console">${consoleHTML(R.out,sn.out)||(!atEnd||!err?'<span class="cdim">(no output yet)</span>':'')}${atEnd?exc:''}</div>${atEnd?hint:''}`}
+  else{if(cfg.step&&q('stepper'))q('stepper').hidden=true;
+   if(cfg.cov)h+=`<div class="lbl">Which lines ran <span>green ran · faded never ran</span></div>`+codeHTML(src,{cov:R.cov,stmt:R.stmtLines});
+   h+=`<div class="lbl">Console</div><div class="console">${consoleHTML(R.out,Infinity)||(err?'':'<span class="cdim">(no output)</span>')}${exc}</div>${hint}`}
+  if(cfg.uml)h+=umlHTML(R.classes);
+  q('res').innerHTML=h;
+  const cl=q('res').querySelector('.ln.cur,.ln.errl');if(cl){const cv=cl.parentElement;cv.scrollTop=cl.offsetTop-cv.clientHeight/2}
+  const tw=q('res').querySelector('.tracewrap');if(tw)tw.scrollTop=tw.scrollHeight};
+ const load=k=>{cur=k;const e=cfg.ex[k];q('src').value=e.c;q('in').value=e.i||'';q('d').textContent=e.d||'';if(cfg.file)q('file').value=e.file||'Welcome.java';
+  q('inbox').hidden=!(cfg.stdin||e.i!==undefined);
+  q('tries').innerHTML=(e.tries||[]).map(t=>`<button data-t="${esc(t)}">Try ${esc(t.replace(/\n/g,' then '))}</button>`).join('');
+  q('tries').querySelectorAll('button').forEach(b=>b.onclick=()=>{q('in').value=b.dataset.t;run()});
+  q('src').rows=Math.min(24,Math.max(8,e.c.split('\n').length+1));run()};
+ pressGroup(q('ex'),'button',b=>load(b.dataset.k));
+ q('run').onclick=run;
+ const deb=()=>{clearTimeout(tm);tm=setTimeout(run,450)};
+ q('src').addEventListener('input',deb);q('in').addEventListener('input',deb);if(cfg.file)q('file').addEventListener('input',deb);
+ q('src').addEventListener('keydown',ev=>{if(ev.key==='Tab'&&!ev.shiftKey){ev.preventDefault();const t=ev.target,s=t.selectionStart;t.setRangeText('  ',s,t.selectionEnd,'end');deb()}});
+ if(cfg.step){q('fwd').onclick=()=>{pos++;render()};q('back').onclick=()=>{pos--;render()};q('first').onclick=()=>{pos=0;render()};q('last').onclick=()=>{pos=R.snaps.length-1;render()};q('rng').oninput=e=>{pos=+e.target.value;render()}}
+ load(names[0])}
+
+/* ---------- stop-specific widgets ---------- */
+function typeLab(el){
+ const X=['a / b','a / (double) b','(double) (a / b)','a / b * d','a % b','-a % b','c + 1','(char) (c + 1)','big + 1','(int) 3.99','"Sum: " + a + b','"Sum: " + (a + b)','a + b + " total"','1.0 - 0.1 - 0.1 - 0.1'];
+ const w=document.createElement('div');el.appendChild(w);
+ w.innerHTML=`<h2>What type is it?</h2><p class="small" style="margin-top:-6px">Java gives every expression a type before it runs. Edit the variables or the expression and read the evaluation one step at a time.</p>
+ <div class="lbl">Variables</div><textarea id="tv" spellcheck="false" style="min-height:96px;margin-top:4px" aria-label="Variable declarations">int a = 7, b = 2;
+double d = 2.5;
+char c = 'A';
+int big = 2147483647;</textarea>
+ <div class="ctrls"><label>Expression <input type="text" id="tx" value="a / b * d" spellcheck="false"></label></div>
+ <div class="chips">${X.map(s=>`<button data-x="${esc(s)}">${esc(s)}</button>`).join('')}</div><div id="to"></div>`;
+ const LAD=['byte','short','int','long','float','double'];
+ const go=()=>{const vars=$('#tv').value,ex=$('#tx').value.trim();if(!ex){$('#to').innerHTML='<div class="out small">Type an expression.</div>';return}
+  const pre=`public class Expr {\n public static void main(String[] args) {\n${vars}\nvar __r = (`;const src=pre+ex+');\n }\n}';const s0=pre.length;
+  const xt={s:s0,e:s0+ex.length,list:[]};const R=J.run(src,{record:false,xtrace:xt,limit:20000});
+  if(R.err){const msg=R.err.phase==='compile'?R.err.message.replace('__r','the result'):J.exText(R.err).split('\n')[0];$('#to').innerHTML=`<div class="ebox"><b>${R.err.phase==='compile'?'Java will not compile this':'Error while evaluating'}</b><pre>${esc(msg)}</pre></div>`;return}
+  const fin=xt.list[xt.list.length-1];if(!fin){$('#to').innerHTML='';return}
+  const ops=xt.list.filter(x=>['bin','un','cast','pre','post','assign','tern','call','fld','idx'].includes(x.k));
+  const notes=[];
+  for(const x of xt.list){if(x.k==='bin'&&x.op==='/'&&x.t==='int')notes.push('Both sides of / are int, so the fraction is thrown away.');if(x.k==='bin'&&x.op==='+'&&x.t==='String')notes.push('Once one side of + is a String, + means “join”, working left to right.');if(x.k==='cast'&&/^-?\d+$/.test(x.v)&&src.slice(x.s,x.e).includes('(int)'))notes.push('Casting a double to int truncates toward zero.');if(x.k==='bin'&&x.t==='int'&&x.v.startsWith('-')&&src.slice(x.s,x.e).includes('big'))notes.push('The int result passed 2,147,483,647 and wrapped around: overflow.');if(x.k==='bin'&&x.t==='int'&&/'/.test(src.slice(x.s,x.e)+'')===false&&/\bc\b/.test(src.slice(x.s,x.e)))notes.push('A char in arithmetic is promoted to int — its Unicode number.')}
+  $('#to').innerHTML=`<div class="out"><span class="small">Result</span><div class="big mono" style="overflow-wrap:anywhere">${esc(fin.v)}</div><span class="tyb">${esc(fin.t)}</span>
+  <div class="ladder">${LAD.map((t,i)=>`${i?'<i>→</i>':''}<span class="${t===fin.t?'on':''}">${t}</span>`).join('')}<span class="${fin.t==='char'?'on':''}" style="margin-left:8px">char</span><span class="${fin.t==='boolean'?'on':''}">boolean</span><span class="${fin.t==='String'?'on':''}">String</span></div>
+  <p class="small" style="margin:8px 0 0">Numeric types widen to the right automatically; going left needs a cast.</p></div>
+  ${ops.length>1?`<div class="lbl">Evaluation, step by step</div><ol class="steps">${ops.map(x=>`<li><code>${esc(src.slice(x.s,x.e))}</code><span>→</span><b>${esc(x.v)}</b><span class="tyb">${esc(x.t)}</span></li>`).join('')}</ol>`:''}
+  ${notes.length?`<ul class="small" style="padding-left:18px">${[...new Set(notes)].map(n=>`<li>${n}</li>`).join('')}</ul>`:''}`};
+ w.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>{$('#tx').value=b.dataset.x;go()});
+ $('#tx').addEventListener('input',go);$('#tv').addEventListener('input',go);go()}
+
+function stringLab(el){
+ const MS=[
+ {s:'length()',a:[],f:s=>({v:s.length,t:'int'})},
+ {s:'charAt(index)',a:['int:3'],f:(s,[i])=>{if(i<0||i>=s.length)throw`StringIndexOutOfBoundsException: Index ${i} out of bounds for length ${s.length}`;return{v:"'"+s[i]+"'",t:'char',h:[i,i+1]}}},
+ {s:'substring(begin)',a:['int:3'],f:(s,[b])=>{if(b<0||b>s.length)throw`StringIndexOutOfBoundsException: begin ${b}, end ${s.length}, length ${s.length}`;return{v:JSON.stringify(s.slice(b)),t:'String',h:[b,s.length]}}},
+ {s:'substring(begin, end)',a:['int:3','int:7'],f:(s,[b,e])=>{if(b<0||e>s.length||b>e)throw`StringIndexOutOfBoundsException: begin ${b}, end ${e}, length ${s.length}`;return{v:JSON.stringify(s.slice(b,e)),t:'String',h:[b,e]}}},
+ {s:'indexOf(str)',a:['str:o'],f:(s,[x])=>{const i=s.indexOf(x);return{v:i,t:'int',h:i>=0?[i,i+x.length]:null}}},
+ {s:'indexOf(str, fromIndex)',a:['str:o','int:5'],f:(s,[x,fr])=>{const i=s.indexOf(x,fr);return{v:i,t:'int',h:i>=0?[i,i+x.length]:null,m:[fr]}}},
+ {s:'lastIndexOf(str)',a:['str:o'],f:(s,[x])=>{const i=s.lastIndexOf(x);return{v:i,t:'int',h:i>=0?[i,i+x.length]:null}}},
+ {s:'toUpperCase()',a:[],f:s=>({v:JSON.stringify(s.toUpperCase()),t:'String'})},
+ {s:'toLowerCase()',a:[],f:s=>({v:JSON.stringify(s.toLowerCase()),t:'String'})},
+ {s:'trim()',a:[],f:s=>{const m=/^\s*/.exec(s)[0].length,e=s.replace(/\s+$/,'').length;return{v:JSON.stringify(s.trim()),t:'String',h:[m,e]}}},
+ {s:'contains(str)',a:['str:Java'],f:(s,[x])=>{const i=s.indexOf(x);return{v:String(i>=0),t:'boolean',h:i>=0?[i,i+x.length]:null}}},
+ {s:'startsWith(str)',a:['str:Wel'],f:(s,[x])=>({v:String(s.startsWith(x)),t:'boolean',h:s.startsWith(x)?[0,x.length]:null})},
+ {s:'replace(old, new)',a:['str:a','str:4'],f:(s,[x,y])=>({v:JSON.stringify(x?s.split(x).join(y):s),t:'String'})},
+ {s:'equals(other)',a:['str:Welcome to Java'],f:(s,[x])=>({v:String(s===x),t:'boolean'})},
+ {s:'compareTo(other)',a:['str:Welcome'],f:(s,[x])=>{const L=Math.min(s.length,x.length);for(let k=0;k<L;k++)if(s[k]!==x[k])return{v:s.charCodeAt(k)-x.charCodeAt(k),t:'int',h:[k,k+1],note:`First difference at index ${k}: '${s[k]}' (${s.charCodeAt(k)}) − '${x[k]}' (${x.charCodeAt(k)})`};return{v:s.length-x.length,t:'int',note:'No differing character, so the result is the difference in lengths.'}}}];
+ const w=document.createElement('div');el.appendChild(w);let mi=3,pick=0;
+ w.innerHTML=`<h2>Explore a String</h2>
+ <div class="ctrls" style="margin-top:0"><label>String s = <input type="text" id="ss" value="Welcome to Java" spellcheck="false"></label></div>
+ <div class="ctrls"><label>Method <select id="sm">${MS.map((m,i)=>`<option value="${i}"${i===mi?' selected':''}>s.${m.s}</option>`).join('')}</select></label><span id="sa" class="ctrls" style="margin:0"></span></div>
+ <div id="sv" class="sx" role="group" aria-label="Characters of s"></div><div id="so"></div><div id="sc"></div>`;
+ const args=()=>MS[mi].a.map((d,j)=>{const v=$('#a'+j).value;return d.startsWith('int')?parseInt(v,10):v});
+ const drawArgs=()=>{$('#sa').innerHTML=MS[mi].a.map((d,j)=>{const[t,v]=d.split(':');return`<label>${t==='int'?'int':'String'} <input type="text" id="a${j}" value="${esc(v)}" style="width:${t==='int'?'5em':'11em'}" spellcheck="false"></label>`}).join('');MS[mi].a.forEach((_,j)=>$('#a'+j).addEventListener('input',go))};
+ const go=()=>{const s=$('#ss').value;const m=MS[mi];const a=args();let r,err=null;
+  if(a.some(x=>typeof x==='number'&&isNaN(x)))err='Enter whole numbers for int arguments.';else try{r=m.f(s,a)}catch(e){err=String(e)}
+  const h=r&&r.h;pick=Math.min(pick,Math.max(0,s.length-1));
+  $('#sv').innerHTML=[...s].map((c,i)=>`<button class="${h&&i>=h[0]&&i<h[1]?'h':''}${i===pick?' pick':''}" data-i="${i}" aria-label="index ${i}: ${esc(c===' '?'space':c)}">${c===' '?'␣':esc(c)}<small>${i}</small></button>`).join('')||'<span class="small">The empty string has length 0.</span>';
+  $('#sv').querySelectorAll('button').forEach(b=>b.onclick=()=>{pick=+b.dataset.i;go()});
+  const call=`s.${m.s.split('(')[0]}(${m.a.map((d,j)=>d.startsWith('int')?$('#a'+j).value:JSON.stringify($('#a'+j).value)).join(', ')})`;
+  $('#so').innerHTML=err?`<div class="ebox"><b>${esc(call)}</b><pre>${esc(err)}</pre></div>`:`<div class="out"><span class="mono">${esc(call)}</span><div class="big mono" style="overflow-wrap:anywhere">${esc(r.v)}</div><span class="tyb">${r.t}</span>${r.note?`<p class="small" style="margin:6px 0 0">${esc(r.note)}</p>`:''}${m.s.startsWith('substring(begin, end)')?'<p class="small" style="margin:6px 0 0">The character at index end is not included.</p>':''}${/^to|trim|replace/.test(m.s)?'<p class="small" style="margin:6px 0 0">s itself is unchanged: Strings are immutable, so the method returns a new String.</p>':''}</div>`;
+  const c=s[pick];if(c!==undefined){const code=c.charCodeAt(0);$('#sc').innerHTML=`<div class="lbl">s.charAt(${pick}) <span>click any box to inspect it</span></div><table class="vt" style="max-width:420px"><tbody><tr><td>char</td><td>'${esc(c)}'</td></tr><tr><td>(int) ch</td><td>${code}  <span class="ty">hex ${code.toString(16).toUpperCase().padStart(4,'0')}</span></td></tr><tr><td>Character.isLetter</td><td>${/\p{L}/u.test(c)}</td></tr><tr><td>Character.isDigit</td><td>${/[0-9]/.test(c)}</td></tr><tr><td>Character.isUpperCase</td><td>${/\p{Lu}/u.test(c)}</td></tr><tr><td>Character.isWhitespace</td><td>${/\s/.test(c)}</td></tr>${/[0-9]/.test(c)?`<tr><td>ch - '0'</td><td>${code-48}</td></tr>`:''}${/\p{L}/u.test(c)?`<tr><td>Character.toUpperCase</td><td>'${esc(c.toUpperCase())}'</td></tr>`:''}</tbody></table>`}else $('#sc').innerHTML=''};
+ $('#sm').onchange=e=>{mi=+e.target.value;drawArgs();go()};$('#ss').addEventListener('input',go);drawArgs();go()}
+
+const LABS={
+ intro:el=>javaLab(el,{h:'Edit, compile, run',ex:EX.intro,file:true}),
+ elementary:el=>{typeLab(el);javaLab(el,{h:'Programs that read input',second:true,ex:EX.elem,stdin:true})},
+ selections:el=>javaLab(el,{h:'Which branch runs?',p:'Pick an input under the code, or type your own.',ex:EX.sel,stdin:true,cov:true}),
+ strings:el=>{stringLab(el);javaLab(el,{h:'Run it',second:true,ex:EX.str})},
+ loops:el=>javaLab(el,{h:'Trace a loop',ex:EX.loops,step:true,view:'trace'}),
+ methods:el=>javaLab(el,{h:'Watch the call stack',ex:EX.methods,step:true,view:'mem'}),
+ arrays:el=>javaLab(el,{h:'Watch the array',p:'Index variables (i, j, low, mid, high…) are shown as markers under the boxes they point at.',ex:EX.arr1,step:true,view:'mem'}),
+ arrays2d:el=>javaLab(el,{h:'Walk the grid',p:'The cell at [i][j] — or [row][col] — is highlighted as the loops run.',ex:EX.arr2,step:true,view:'mem'}),
+ classes:el=>javaLab(el,{h:'Objects on the heap',ex:EX.classes,step:true,view:'mem',uml:true}),
+ oothinking:el=>javaLab(el,{h:'Classes working together',ex:EX.oo,step:true,view:'mem',uml:true})};
+
+/* ---------- navigation ---------- */
+function nav(cur){const p=store.get();$('#nav').innerHTML=M.map(m=>`<a href="#${m.id}" class="${m.id===cur?'on':''} ${p[m.id]===3?'done':''}" style="--lc:${COL[LINES[m.line].c]}" ${m.id===cur?'aria-current="page"':''}><span class="dot"></span>${esc(m.s)}</a>`).join('');const on=$('#nav a.on');if(on)on.scrollIntoView({block:'nearest',inline:'center'})}
+function home(){
+ const p=store.get();
+ const P=[[70,80],[195,80],[320,205],[445,205],[570,205],[695,80],[820,205],[945,205],[1070,80],[1195,80]];
+ let path='';for(let i=1;i<P.length;i++)path+=`<line x1="${P[i-1][0]}" y1="${P[i-1][1]}" x2="${P[i][0]}" y2="${P[i][1]}" stroke="${COL[LINES[M[i].line].c]}" stroke-width="14" stroke-linecap="round"/>`;
+ const st=M.map((m,i)=>{const[x,y]=P[i],top=y<150,c=COL[LINES[m.line].c],d=p[m.id]===3;return`<a href="#${m.id}"><circle cx="${x}" cy="${y}" r="16" fill="${d?c:'var(--bg)'}" stroke="var(--ink)" stroke-width="6"/><text x="${x}" y="${top?y-56:y+46}" text-anchor="middle">${esc(m.s)}</text><text class="s" x="${x}" y="${top?y-34:y+68}" text-anchor="middle">Ch. ${i+1}${d?' · done':''}</text></a>`}).join('');
+ const done=M.filter(m=>p[m.id]===3).length;
+ $('#main').innerHTML=`<section class="band"><div class="wrap">
+ <h1>Programming in Java: the course map</h1>
+ <p class="lede">Ten stops on five lines, from your first println to designing your own classes. Every stop has a Java lab that runs in the browser, short notes keyed to Liang chapters 1–10, and a three-question check. ${done?`You have cleared <b>${done} of ${M.length}</b> stops.`:'Start at stop 1, or jump to any station.'}</p>
+ <div class="map" style="margin-top:24px"><svg viewBox="0 0 1265 300" role="img" aria-label="Course route map">${path}${st}</svg>
+ <ul class="vmap">${M.map((m,i)=>`<li class="${p[m.id]===3?'done':''}" style="--lc:${COL[LINES[m.line].c]}"><a href="#${m.id}"><span class="dot"></span><span><b>${esc(m.t)}</b><small>Chapter ${i+1} · ${LINES[m.line].n} line${p[m.id]===3?' · done':''}</small></span></a></li>`).join('')}</ul></div>
+ <div class="lines">${Object.entries(LINES).map(([k,l])=>`<div style="--lc:${COL[l.c]}"><b>${l.n} line</b><p>${M.filter(m=>m.line===k).map(m=>esc(m.t)).join(' → ')}</p></div>`).join('')}</div>
+ <div class="ctrls" style="margin-top:28px"><a href="#intro"><button class="pri" tabindex="-1">Start at stop 1</button></a><a href="#loops"><button tabindex="-1">Jump to loops</button></a><a href="#classes"><button tabindex="-1">Jump to objects</button></a>${done?'<button id="reset">Clear my quiz progress</button>':''}</div>
+ </div></section>`;
+ const r=$('#reset');if(r)r.onclick=()=>{store.set({});route()}}
+function page(m){
+ const i=M.indexOf(m),L=LINES[m.line],prev=M[i-1],next=M[i+1];
+ $('#main').innerHTML=`<section class="band"><div class="wrap">
+  <span class="pill"><b class="${L.c==='amber'?'amber':''}">${L.n} line</b>Stop ${i+1} of ${M.length} · Liang ch. ${i+1}</span>
+  <h1 style="margin-top:12px">${esc(m.t)}</h1><p class="lede">${esc(m.lede)}</p></div></section>
+ <section class="band" style="padding-top:0"><div class="wrap grid">
+  <div class="lab ${L.c==='amber'?'amberline':''}" id="lab"></div>
+  <article class="notes"><h2>Notes</h2>${m.notes}</article>
+ </div></section>
+ <section class="band" style="padding-top:0"><div class="wrap quiz" id="quiz"></div>
+  <div class="wrap pager">${prev?`<a href="#${prev.id}"><small>← Previous stop</small>${esc(prev.t)}</a>`:'<a href="#"><small>← Back to</small>Course map</a>'}${next?`<a href="#${next.id}" style="text-align:right"><small>Next stop →</small>${esc(next.t)}</a>`:'<a href="#" style="text-align:right"><small>End of the line →</small>Course map</a>'}</div></section>`;
+ LABS[m.id]($('#lab'));quiz(m)}
+function quiz(m){
+ const el=$('#quiz');const p=store.get();
+ el.innerHTML=`<h2 style="margin-top:18px">Check yourself</h2>${p[m.id]!=null?`<p class="small">Best so far: ${p[m.id]} of 3.</p>`:''}`+m.quiz.map((q,qi)=>`<div class="q" id="q${qi}"><p>${qi+1}. ${esc(q.q)}</p>${q.o.map((o,oi)=>`<label class="opt"><input type="radio" name="q${qi}" value="${oi}">${esc(o)}</label>`).join('')}<div class="why"></div></div>`).join('')+`<div class="ctrls"><button class="pri" id="grade">Check answers</button><button id="retry">Try again</button><span id="score" class="big"></span></div>`;
+ $('#grade').onclick=()=>{let s=0;m.quiz.forEach((q,qi)=>{const box=$('#q'+qi),sel=box.querySelector('input:checked');box.classList.add('checked');box.querySelectorAll('.opt').forEach((o,oi)=>{o.classList.toggle('right',oi===q.a);o.classList.toggle('wrong',!!sel&&+sel.value===oi&&oi!==q.a)});const ok=sel&&+sel.value===q.a;if(ok)s++;box.querySelector('.why').textContent=(sel?(ok?'Correct. ':'Not quite. '):'No answer chosen. ')+q.w});$('#score').textContent=s+' / 3';const st=store.get();st[m.id]=Math.max(st[m.id]||0,s);store.set(st);nav(m.id)};
+ $('#retry').onclick=()=>quiz(m)}
+function route(){const id=location.hash.slice(1);const m=M.find(x=>x.id===id);document.documentElement.style.setProperty('--c',m?COL[LINES[m.line].c]:COL.red);nav(m?m.id:'');if(m)page(m);else home();window.scrollTo(0,0)}
+addEventListener('hashchange',route);route();
+}
+</script>
+</body>
+</html>
